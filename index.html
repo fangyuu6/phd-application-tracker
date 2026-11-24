@@ -108,7 +108,7 @@
   <div class="wrap"><table id="matrix"></table></div>
 
   <h2>三、其他文书：每一篇是什么、缺不缺</h2>
-  <p class="muted">“其他文书”指 SOP 以外要写的东西。先列还没有文件的，再列要进系统确认的、已有待确认的、可选的。</p>
+  <p class="muted">“其他文书”指 SOP 以外要写的东西。个人陈述类的都可以用你现成的 250／500／750 词三个版本；还没有文字的只有 CMU 的 Research Proposal 和 UIUC 的 Q2。</p>
   <div class="wrap"><table id="essays"><thead><tr><th>学校</th><th>截止</th><th>文书和长度</th><th>要写什么</th><th>现在的情况</th><th>状态</th></tr></thead><tbody></tbody></table></div>
   <p class="muted" id="noessay"></p>
 
@@ -159,7 +159,7 @@ const tr = req => ok(req, TR_HAVE);
 
 const GENERAL = [
   ["SOP", "`sop/1_之前的15所/` 和 `sop/2_后来的15所/` 各 15 份 .docx。另一个会话今天 15:02 改过其中 27 份（gap 句改回冒号，Harris 的 fit 段第一句换了），下面的词数是改完之后量的", "warn", "**你 11/24 说：之前的 15 所完成 99%，后来的 15 所完成 70%。** 表里后来的 15 所标“满足·草稿”。**30 份都没有 PDF**，Maryland、Duke、UCSB、UC Riverside 写明要 PDF", "看各校"],
-  ["其他文书", "你的原稿三版（250／500／750 词，在 `网申材料/`）；8 所学校的分校版在 `个人陈述_待确认/`：Berkeley、Columbia、Maryland、Michigan、Princeton、UCLA、UC Irvine、UCSB", "bad", "**还没有文件的 6 所**，每篇的题目见第三部分：CMU Heinz 的 Research Proposal、Northwestern 的 Personal Statement、Cornell 的 Personal Statement、Brown 的 Supplemental Essay、Duke 的 Life Experiences Statement、UIUC 的两道必答短答。Emory 那篇要不要交得进系统看", "缺 6 所"],
+  ["其他文书", "你的个人陈述有三个长度（250／500／750 词，在 `网申材料/`）；其中 8 所学校另存了分校版，在 `个人陈述_待确认/`，和原稿只差几个字", "warn", "要个人陈述类文书的学校，现成的三个版本都能对上长度：Northwestern 和 Brown 用 250 词版，Cornell 和 Duke 用 500 词版，UIUC 的 Q1 用 250 词版。**真正还没有文字的只有两篇**：CMU Heinz 的 Research Proposal（1200 词以内）和 UIUC 的短答 Q2。Emory 那篇要不要交得进系统看", "缺 2 篇"],
   ["CV", CVF + "，11/24 更新", "ok", "三所有特殊要求：UCSB 要写每周小时数，Michigan 要加页眉，Northwestern 要求高中以后不留空档"],
   ["写作样本", "完整版 52 页、25 页版，都是双倍行距，独立署名", "ok", "Princeton（最多 25 页）和 Columbia（30 页双倍行距）用 25 页版。UCLA、Michigan、UCSB 写明不要交。CUNY 要求文件上写出生日期"],
   ["成绩单", TR_HAVE + "，另有四合一的合并版。USC 那份是 2026-08-26 下载的，只到 2026 夏季", "bad", "**官方成绩单要去线上订**（你 11/24 说的）。USC 的官方版：Michigan、UCSB、Emory、Georgia Tech、USC 研究生院要扫描件，CMU Heinz 要评审前到，Boston College 的语言豁免也要。BU、Rutgers、UIUC 的官方版：UCSB、Emory、Georgia Tech 要每所学校的。另外 UCLA 要在成绩单上圈课程，几所要带评分说明", "要线上订"],
@@ -409,7 +409,7 @@ const SCHOOLS = [
   { id: "northwestern", name: "Northwestern", prog: "PhD in Economics", ddl: "12/15", ddlFull: "12/15 晚 11:59（中部时间）", date: "2026-12-15", fee: "$95",
     items: {
       sop: draft("Academic Statement of Purpose，500–1000 词", "981 词"),
-      essay: bad("缺 Personal Statement", "Personal Statement，研究生院要求所有人必交，125–250 词；写关键经历、服务或领导经历，不能和 SOP 重复", "没有文件。你的 250 词版 diversity statement 可以作底稿"),
+      essay: ok("Personal Statement，研究生院要求所有人必交，125–250 词；写关键经历、服务或领导经历，不能和 SOP 重复", "你的 250 词版个人陈述（`网申材料/fangyu_diversity_statement250.pdf`，248 词），在上限以内，内容对得上题目；还没另存成 Northwestern 的文件", "有·250 词版"),
       ws: ok("可选，最多一篇", WS_ALL, "可选·有"),
       cv: warn("看有没有空档", "必交；要涵盖高中以后的全部经历，不能有空档", CVF + "；有没有空档要你自己过一眼"),
       tr: tr("每所学校的扫描件；现阶段不要官方版"),
@@ -417,14 +417,14 @@ const SCHOOLS = [
       rec: rec("至少 3 封，最多 5 封"),
       form: bad("缺 Courses Form", "Courses Form：六门最高阶、已出成绩的经济和数学课（含中级微观、宏观、计量）加主要教材；在读的课不填", "没有文件"),
     },
-    gaps: ["写 Personal Statement（125–250 词）", "填 Courses Form", "问清语言豁免", "SOP 还没定稿"],
+    gaps: ["填 Courses Form", "问清语言豁免", "SOP 还没定稿"],
     note: "提交后不能改。",
     src: ["https://economics.northwestern.edu/graduate/prospective/admissions.html", "https://www.tgs.northwestern.edu/admission/application-procedures/application-requirements/essays.html"] },
 
   { id: "cornell", name: "Cornell", prog: "PhD in Economics", ddl: "12/15", ddlFull: "12/15（年份和时间没写）", date: "2026-12-15", fee: "$105",
     items: {
       sop: draft("Academic Statement of Purpose，1–2 页，标准字体；**每页顶部写全名和申请项目**", "980 词，估算约 1.7 页，页眉已有"),
-      essay: bad("缺 Personal Statement", "Personal Statement，必交，长度没写；写背景和经历如何影响你读研的决定和准备，以及你如何为 community of belonging 做贡献；和学术陈述互补，不重复", "没有文件"),
+      essay: ok("Personal Statement，必交，长度没写；写背景和经历如何影响你读研的决定和准备，以及你如何为 community of belonging 做贡献；和学术陈述互补，不重复", "你的 500 词版个人陈述（`网申材料/fangyu_diversity_statement500.pdf`，497 词，1 页），或 750 词版，内容对得上题目；还没另存成 Cornell 的文件", "有·500 词版"),
       ws: na("没写"),
       cv: cv("必交"),
       tr: tr("非官方即可；读过的每所学校都要，但转学分已经显示在学位成绩单上的，可以只列学校；文件不超过 10MB，不能加密，SSN 要遮住"),
@@ -432,7 +432,7 @@ const SCHOOLS = [
       rec: rec("3 封"),
       form: na("没写"),
     },
-    gaps: ["写 Personal Statement", "SOP 还没定稿"],
+    gaps: ["SOP 还没定稿"],
     note: "交费后不能再改。",
     src: ["https://economics.cornell.edu/prospective-incoming-grad-students", "https://gradschool.cornell.edu/admissions/application-steps/personal-statements/"] },
 
@@ -453,7 +453,7 @@ const SCHOOLS = [
   { id: "brown", name: "Brown", prog: "PhD in Economics", ddl: "1/1", ddlFull: "2027/1/1（按东部时间算）", date: "2027-01-01", fee: "$75",
     items: {
       sop: warn("不足 2 页", "Personal statement，2–3 页", "1059 词。文件实际是单倍行距，估算约 1.9 页。我之前说它改成了 1.5 倍行距、约 2.4 页，那次改动没有生效"),
-      essay: bad("缺 Supplemental Essay", "Supplemental Essay，不超过 300 词，两题选一：① 你的背景和经历如何让你受益于并贡献于 Brown 的包容性学术社区；② 你打算如何通过研究、教学或服务促进多元和包容", "没有文件"),
+      essay: ok("Supplemental Essay，不超过 300 词，两题选一：① 你的背景和经历如何让你受益于并贡献于 Brown 的包容性学术社区；② 你打算如何通过研究、教学或服务促进多元和包容", "你的 250 词版个人陈述（`网申材料/fangyu_diversity_statement250.pdf`，248 词），在上限以内，对应第 ① 题；文中没有提到 Brown", "有·250 词版"),
       ws: na("没写"),
       cv: na("没写", "有 CV，系统里有栏位就交"),
       tr: tr("非官方即可，要显示姓名和学校"),
@@ -461,7 +461,7 @@ const SCHOOLS = [
       rec: rec("3 封，系里不建议多交"),
       form: na("没写"),
     },
-    gaps: ["写 Supplemental Essay（300 词以内）", "SOP 改成 1.5 倍行距才到 2 页以上", "SOP 还没定稿"],
+    gaps: ["SOP 改成 1.5 倍行距才到 2 页以上", "SOP 还没定稿"],
     src: ["https://economics.brown.edu/academics/graduate/faqs", "https://graduateschool.brown.edu/apply/application-faqs"] },
 
   { id: "jhu", name: "Johns Hopkins", prog: "PhD in Economics", ddl: "1/1", ddlFull: "2027/1/1（时间没写）", date: "2027-01-01", fee: "$75",
@@ -540,7 +540,7 @@ const SCHOOLS = [
   { id: "duke", name: "Duke", prog: "PhD in Economics", ddl: "1/6", ddlFull: "2027/1/6 晚 11:59（东部时间）", date: "2027-01-06", fee: "$105",
     items: {
       sop: warn("要转 PDF；缺 weaknesses", "1–2 页单倍行距；题目要求写目的、兴趣和计划、**在本领域的强项和弱项**、研究项目、选 Duke 的理由；**只收 PDF**；所有文件上要有全名", "1077 词，约 1.9 页，页眉有姓名；只有 .docx；正文没有写 weaknesses；草稿"),
-      essay: bad("缺 Life Experiences Statement", "Life Experiences Statement，必交，不超过 1 页单倍行距；写塑造你的人生经历，以及你会怎样用它们为 Duke 的学术社区做贡献", "没有文件。你的 500 词版 diversity statement 正好约 1 页，可以作底稿"),
+      essay: warn("有，要加姓名转 PDF", "Life Experiences Statement，必交，不超过 1 页单倍行距；写塑造你的人生经历，以及你会怎样用它们为 Duke 的学术社区做贡献。Duke 要求所有文件上有全名", "你的 500 词版个人陈述（`网申材料/fangyu_diversity_statement500.pdf`，497 词，1 页），正好 1 页；文件上没有姓名"),
       ws: ok("建议交（非必须）；每个文件不超过 75 页", WS_ALL, "建议·有"),
       cv: cv("必交"),
       tr: tr("非官方即可；拿过学位、读过一学期以上、修过 12 学分以上或上过相关课程的学校都要；每个文件不超过 1.5MB（你的四份都小于这个数）"),
@@ -548,13 +548,13 @@ const SCHOOLS = [
       rec: rec("3 封，不建议多交"),
       form: na("没写"),
     },
-    gaps: ["写 Life Experiences Statement（1 页）", "SOP 补 weaknesses", "所有文件转 PDF 并带全名", "SOP 还没定稿"],
+    gaps: ["个人陈述加上姓名", "SOP 补 weaknesses", "所有文件转 PDF 并带全名", "SOP 还没定稿"],
     src: ["https://econ.duke.edu/phd-program/prospective-students/application-instructions", "https://gradschool.duke.edu/admissions/application-instructions"] },
 
   { id: "uiuc", name: "UIUC", prog: "PhD in Economics", ddl: "1/10？", ddlFull: "官方页面现在没写日期；1/10 只出现在旧页面的缓存里，要进系统或问 econ-phd@illinois.edu", date: "2027-01-10", fee: "$90",
     items: {
       sop: warn("上限进系统看", "Academic Statement，上限由项目设在 500–1000 词之间，经济系设的数只在系统里", "987 词；草稿"),
-      essay: bad("缺 2 道必答短答", "4 道短答，各不超过 250 词。Q1（必答）：塑造你学业和职业发展的关键经历、机会或困难；Q2（必答）：和不同背景的同伴共事的例子，以及你学到什么；Q3、Q4 可选", "没有文件"),
+      essay: bad("缺 Q2", "4 道短答，各不超过 250 词。Q1（必答）：塑造你学业和职业发展的关键经历、机会或困难；Q2（必答）：和不同背景的同伴共事的例子，以及你学到什么；Q3、Q4 可选", "Q1 可以用你的 250 词版个人陈述（`网申材料/fangyu_diversity_statement250.pdf`，248 词）。Q2 没有现成的文字"),
       ws: na("没写"),
       cv: ok("系里没列；研究生院说多数项目要", CVF),
       tr: warn("缺评分说明", "非官方的上传一份即可；每所学校都要，PDF 或 Word，带评分说明", TR_NO_LEGEND),
@@ -562,7 +562,7 @@ const SCHOOLS = [
       rec: rec("3 封"),
       form: na("没写"),
     },
-    gaps: ["写两道必答短答（各 250 词以内）", "确认截止日期", "进系统看 SOP 上限", "成绩单配上评分说明", "SOP 还没定稿"],
+    gaps: ["写短答 Q2（250 词以内）", "确认截止日期", "进系统看 SOP 上限", "成绩单配上评分说明", "SOP 还没定稿"],
     note: "截止时没交费，申请会退回未提交状态。",
     src: ["https://economics.illinois.edu/admissions/phd-admissions/phd-application", "https://grad.illinois.edu/admissions/application-instructions/completing-your-graduate-application"] },
 
@@ -613,11 +613,11 @@ const SCHOOLS = [
 // 其他文书：[学校, 截止, 文书和长度, 要写什么, 现在的情况, 状态, 标签, 是否虚线]
 const ESSAYS = [
   ["Carnegie Mellon（Heinz）", "12/1", "**Research Proposal**，必交，不超过 1200 词", "和 SOP 是两份。写一个你想做的研究项目：想法是什么、为什么重要（对谁重要）、初步打算怎么做、要回答的主要问题、需要哪类证据来支持结论", "没有文件", "bad", "缺"],
-  ["Northwestern", "12/15", "**Personal Statement**，必交，125–250 词", "关键经历、服务或领导经历，或申请里别处没写到的内容；不能和 SOP 重复", "没有文件。你的 250 词版个人陈述可以作底稿", "bad", "缺"],
-  ["Cornell", "12/15", "**Personal Statement**，必交，长度没写", "你的背景和经历如何影响你读研的决定和准备；你会怎样为 community of belonging 做贡献；和学术陈述互补，不重复", "没有文件。你的 500 或 750 词版可以作底稿", "bad", "缺"],
-  ["Brown", "1/1", "**Supplemental Essay**，要上传，不超过 300 词", "两题选一：① 你的背景、知识和经历如何让你受益于并贡献于 Brown 的包容性学术社区；② 你打算如何通过研究、教学或服务促进多元和包容", "没有文件。你的 250 词版可以作底稿", "bad", "缺"],
-  ["Duke", "1/6", "**Life Experiences Statement**，必交，不超过 1 页单倍行距", "塑造你的人生经历，以及你会怎样用它们为 Duke 的学术社区做贡献", "没有文件。你的 500 词版正好约 1 页，可以作底稿", "bad", "缺"],
-  ["UIUC", "1/10？", "**两道必答短答**，各不超过 250 词", "Q1：塑造你学业和职业发展的关键经历、机会或困难（含经济或机会上的障碍）。Q2：和不同观点、能力或经历的同伴共事的一个例子，以及你学到了什么", "没有文件。Q1 可以用 250 词版作底稿，Q2 要新写", "bad", "缺 2 篇"],
+  ["Northwestern", "12/15", "Personal Statement，必交，125–250 词", "关键经历、服务或领导经历，或申请里别处没写到的内容；不能和 SOP 重复", "用你的 250 词版（248 词），内容对得上；还没另存成 Northwestern 的文件", "ok", "有·250 词版"],
+  ["Cornell", "12/15", "Personal Statement，必交，长度没写", "你的背景和经历如何影响你读研的决定和准备；你会怎样为 community of belonging 做贡献；和学术陈述互补，不重复", "用你的 500 词版或 750 词版，内容对得上；还没另存成 Cornell 的文件", "ok", "有·500 词版"],
+  ["Brown", "1/1", "Supplemental Essay，要上传，不超过 300 词", "两题选一：① 你的背景、知识和经历如何让你受益于并贡献于 Brown 的包容性学术社区；② 你打算如何通过研究、教学或服务促进多元和包容", "用你的 250 词版（248 词），对应第 ① 题；文中没有提到 Brown", "ok", "有·250 词版"],
+  ["Duke", "1/6", "Life Experiences Statement，必交，不超过 1 页单倍行距", "塑造你的人生经历，以及你会怎样用它们为 Duke 的学术社区做贡献", "用你的 500 词版（497 词，正好 1 页）；Duke 要求文件上有全名、只收 PDF，现在的文件上没有姓名", "warn", "有，要加姓名"],
+  ["UIUC", "1/10？", "**两道必答短答**，各不超过 250 词", "Q1：塑造你学业和职业发展的关键经历、机会或困难（含经济或机会上的障碍）。Q2：和不同观点、能力或经历的同伴共事的一个例子，以及你学到了什么", "Q1 用你的 250 词版。**Q2 没有现成的文字**", "bad", "缺 Q2"],
   ["Emory", "1/1", "Statement on Building Collaborative and Respectful Graduate Communities，不超过 500 词", "Laney 写“按项目建议或必交”，经济系页面没提，Laney 自己那页的标题是 Optional Diversity Statement", "没有专门的文件；500 词版可以作底稿", "unk", "进系统看"],
   ["Georgia Tech", "1/4", "系统里 Supplemental 部分的题目", "没有公开，按项目而定", "—", "unk", "进系统看"],
   ["UC Berkeley", "12/1", "Personal History Statement，必交，不超过 3 页双倍行距", "背景和人生经历如何影响你现在读研的决定；不能和 SOP 重复", "`个人陈述_待确认/PS_UC_Berkeley.docx`，765 词，3 页", "ok", "满足·待确认", true],
