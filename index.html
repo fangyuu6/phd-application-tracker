@@ -44,6 +44,11 @@
   .tile b { display: block; font-size: 24px; font-variant-numeric: tabular-nums; }
   .tile span { color: var(--muted); font-size: 13px; }
 
+  .prog { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin: 0 0 14px; }
+  .prog div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; font-size: 14px; }
+  .prog b { float: right; font-variant-numeric: tabular-nums; }
+  .prog i { display: block; height: 8px; border-radius: 999px; background: var(--line); margin-top: 8px; overflow: hidden; }
+  .prog i::after { content: ""; display: block; height: 100%; width: var(--p); background: var(--accent); }
   .wrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
   table { border-collapse: collapse; width: 100%; font-size: 14px; }
   th, td { text-align: left; vertical-align: top; padding: 8px 12px; border-bottom: 1px solid var(--line); }
@@ -85,9 +90,10 @@
   <p class="muted" id="intro"></p>
 
   <div class="tiles" id="tiles"></div>
+  <div class="prog" id="prog"></div>
   <div class="legend">
     <span><span class="chip ok">满足</span> 文件在，量过，在记录到的要求以内</span>
-    <span><span class="chip ok draft">满足·草稿</span> 对得上要求，但内容你还没看过或没确认</span>
+    <span><span class="chip ok draft">满足·草稿</span> 对得上要求，内容还没定稿或没确认</span>
     <span><span class="chip warn">要处理</span> 要转 PDF、要在 Word 里确认页数、要向学校确认，或缺一部分</span>
     <span><span class="chip bad">缺</span> 学校要、文件夹里没有</span>
     <span><span class="chip unk">看不到</span> 在网申系统里，我没法核对</span>
@@ -127,7 +133,9 @@ const TODAY = "2026-11-24";
 const COLS = [["sop","SOP"],["essay","其他文书"],["ws","写作样本"],["cv","CV"],["tr","成绩单"],["test","GRE／语言"],["rec","推荐信"],["form","表格等"]];
 const LABEL = { ok: "满足", warn: "要处理", bad: "缺", unk: "看不到", na: "—" };
 
-const INTRO = "整理于 2026-11-24。左边是各校官方页面写明的要求，右边是你文件夹里现在的文件，量过之后对照。“满足”只说明文件对得上记录到的要求；网申系统里的栏位和送分，我看不到。你 11/24 确认过的四点已写进表里：CMU 走 Heinz；推荐信已经满足；GRE 有，语言成绩没有，本科四年都在美国；官方成绩单要去线上订。";
+// SOP 完成度：你 2026-11-24 说的
+const PROGRESS = [["SOP：之前的 15 所（`sop/1_之前的15所/`）", 99], ["SOP：后来的 15 所（`sop/2_后来的15所/`）", 70]];
+const INTRO = "整理于 2026-11-24。左边是各校官方页面写明的要求，右边是你文件夹里现在的文件，量过之后对照。“满足”只说明文件对得上记录到的要求；网申系统里的栏位和送分，我看不到。你 11/24 确认过的几点已写进表里：SOP 之前的 15 所完成 99%，后来的 15 所完成 70%；CMU 走 Heinz；推荐信已经满足；GRE 有，语言成绩没有，本科四年都在美国；官方成绩单要去线上订。";
 
 // 常用的“现在的情况”
 const TR_HAVE = "USC、BU、Rutgers、UIUC NetMath 四份非官方成绩单都在";
@@ -150,7 +158,7 @@ const cv = req => ok(req, CVF);
 const tr = req => ok(req, TR_HAVE);
 
 const GENERAL = [
-  ["SOP", "`sop/1_之前的15所/` 和 `sop/2_后来的15所/` 各 15 份 .docx。另一个会话今天 15:02 改过其中 27 份（gap 句改回冒号，Harris 的 fit 段第一句换了），下面的词数是改完之后量的", "warn", "第一批你逐句定过；第二批是草稿，你还没逐份看。**30 份都没有 PDF**，Maryland、Duke、UCSB、UC Riverside 写明要 PDF", "看各校"],
+  ["SOP", "`sop/1_之前的15所/` 和 `sop/2_后来的15所/` 各 15 份 .docx。另一个会话今天 15:02 改过其中 27 份（gap 句改回冒号，Harris 的 fit 段第一句换了），下面的词数是改完之后量的", "warn", "**你 11/24 说：之前的 15 所完成 99%，后来的 15 所完成 70%。** 表里后来的 15 所标“满足·草稿”。**30 份都没有 PDF**，Maryland、Duke、UCSB、UC Riverside 写明要 PDF", "看各校"],
   ["其他文书", "你的原稿三版（250／500／750 词，在 `网申材料/`）；8 所学校的分校版在 `个人陈述_待确认/`：Berkeley、Columbia、Maryland、Michigan、Princeton、UCLA、UC Irvine、UCSB", "bad", "**还没有文件的 6 所**，每篇的题目见第三部分：CMU Heinz 的 Research Proposal、Northwestern 的 Personal Statement、Cornell 的 Personal Statement、Brown 的 Supplemental Essay、Duke 的 Life Experiences Statement、UIUC 的两道必答短答。Emory 那篇要不要交得进系统看", "缺 6 所"],
   ["CV", CVF + "，11/24 更新", "ok", "三所有特殊要求：UCSB 要写每周小时数，Michigan 要加页眉，Northwestern 要求高中以后不留空档"],
   ["写作样本", "完整版 52 页、25 页版，都是双倍行距，独立署名", "ok", "Princeton（最多 25 页）和 Columbia（30 页双倍行距）用 25 页版。UCLA、Michigan、UCSB 写明不要交。CUNY 要求文件上写出生日期"],
@@ -395,7 +403,7 @@ const SCHOOLS = [
       rec: rec("3 封，可加第四封；不收 Interfolio"),
       form: na("没写"),
     },
-    gaps: ["SOP 草稿你还没看过"],
+    gaps: ["SOP 还没定稿"],
     src: ["https://economics.sas.upenn.edu/graduate/prospective-students/admissions-information-phd-program-economics", "https://economics.sas.upenn.edu/graduate/prospective-students/frequently-asked-questions"] },
 
   { id: "northwestern", name: "Northwestern", prog: "PhD in Economics", ddl: "12/15", ddlFull: "12/15 晚 11:59（中部时间）", date: "2026-12-15", fee: "$95",
@@ -409,7 +417,7 @@ const SCHOOLS = [
       rec: rec("至少 3 封，最多 5 封"),
       form: bad("缺 Courses Form", "Courses Form：六门最高阶、已出成绩的经济和数学课（含中级微观、宏观、计量）加主要教材；在读的课不填", "没有文件"),
     },
-    gaps: ["写 Personal Statement（125–250 词）", "填 Courses Form", "问清语言豁免", "SOP 草稿你还没看过"],
+    gaps: ["写 Personal Statement（125–250 词）", "填 Courses Form", "问清语言豁免", "SOP 还没定稿"],
     note: "提交后不能改。",
     src: ["https://economics.northwestern.edu/graduate/prospective/admissions.html", "https://www.tgs.northwestern.edu/admission/application-procedures/application-requirements/essays.html"] },
 
@@ -424,7 +432,7 @@ const SCHOOLS = [
       rec: rec("3 封"),
       form: na("没写"),
     },
-    gaps: ["写 Personal Statement", "SOP 草稿你还没看过"],
+    gaps: ["写 Personal Statement", "SOP 还没定稿"],
     note: "交费后不能再改。",
     src: ["https://economics.cornell.edu/prospective-incoming-grad-students", "https://gradschool.cornell.edu/admissions/application-steps/personal-statements/"] },
 
@@ -439,7 +447,7 @@ const SCHOOLS = [
       rec: rec("3 封；推荐信和官方成绩可到 12/31；推荐人要用机构邮箱"),
       form: na("没有"),
     },
-    gaps: ["SOP 草稿你还没看过"],
+    gaps: ["SOP 还没定稿"],
     src: ["https://www.bu.edu/econ/admissions/apply-for-a-phd/", "https://www.bu.edu/cas/admissions/phd-mfa/apply/"] },
 
   { id: "brown", name: "Brown", prog: "PhD in Economics", ddl: "1/1", ddlFull: "2027/1/1（按东部时间算）", date: "2027-01-01", fee: "$75",
@@ -453,7 +461,7 @@ const SCHOOLS = [
       rec: rec("3 封，系里不建议多交"),
       form: na("没写"),
     },
-    gaps: ["写 Supplemental Essay（300 词以内）", "SOP 改成 1.5 倍行距才到 2 页以上", "SOP 草稿你还没看过"],
+    gaps: ["写 Supplemental Essay（300 词以内）", "SOP 改成 1.5 倍行距才到 2 页以上", "SOP 还没定稿"],
     src: ["https://economics.brown.edu/academics/graduate/faqs", "https://graduateschool.brown.edu/apply/application-faqs"] },
 
   { id: "jhu", name: "Johns Hopkins", prog: "PhD in Economics", ddl: "1/1", ddlFull: "2027/1/1（时间没写）", date: "2027-01-01", fee: "$75",
@@ -467,7 +475,7 @@ const SCHOOLS = [
       rec: rec("至少 2 封"),
       form: bad("缺在读课程清单", "要另外上传一份成绩单上还没有的在读课程清单", "没有文件"),
     },
-    gaps: ["列一份在读课程清单", "SOP 草稿你还没看过"],
+    gaps: ["列一份在读课程清单", "SOP 还没定稿"],
     src: ["https://econ.jhu.edu/graduate/phd-program/admissions/", "https://krieger.jhu.edu/graduate-admissions/apply/how-to-apply/"] },
 
   { id: "emory", name: "Emory", prog: "PhD in Economics", ddl: "1/1", ddlFull: "2027/1/1 晚 11:59（东部时间）", date: "2027-01-01", fee: "$75",
@@ -481,7 +489,7 @@ const SCHOOLS = [
       rec: rec("3 封，可加第四封"),
       form: unk("网申里要选一个研究方向、列研究经历", "在系统里填，我看不到", "系统里填"),
     },
-    gaps: ["线上订四所学校的官方成绩单", "进系统看那篇 500 词的陈述要不要交", "SOP 草稿你还没看过"],
+    gaps: ["线上订四所学校的官方成绩单", "进系统看那篇 500 词的陈述要不要交", "SOP 还没定稿"],
     note: "提交后不能改。",
     src: ["https://economics.emory.edu/doctoral/apply-to-phd/application-requirements.html", "https://gs.emory.edu/admissions/requirements.html"] },
 
@@ -496,7 +504,7 @@ const SCHOOLS = [
       rec: rec("3 封"),
       form: na("没有"),
     },
-    gaps: ["订一份官方成绩单（语言豁免用）", "SOP 草稿你还没看过"],
+    gaps: ["订一份官方成绩单（语言豁免用）", "SOP 还没定稿"],
     src: ["https://www.bc.edu/bc-web/schools/morrissey/departments/economics/graduate/admissions.html", "https://www.bc.edu/bc-web/schools/mcas/graduate/admission.html"] },
 
   { id: "gatech", name: "Georgia Tech", prog: "PhD in Economics", ddl: "1/4", ddlFull: "系统写 2027/1/4 晚 11:59（东部时间）；系里写 1/1 优先；FAQ 建议国际生 12/1 前交完", date: "2027-01-04", fee: "$105",
@@ -510,7 +518,7 @@ const SCHOOLS = [
       rec: rec("3 封"),
       form: na("没写"),
     },
-    gaps: ["线上订四所学校的官方成绩单", "进系统看文书题目和上限", "系里建议国际生 12/1 前交完", "SOP 草稿你还没看过"],
+    gaps: ["线上订四所学校的官方成绩单", "进系统看文书题目和上限", "系里建议国际生 12/1 前交完", "SOP 还没定稿"],
     note: "提交后不能改。这个项目没有 labor 方向；申不申你还没定。",
     src: ["https://gradapp.gatech.edu/portal/program-info?cmd=view-program&program=62c4f7df-5c59-69b6-6d3a-627d030ec21d", "https://econ.gatech.edu/phd-economics/faq", "https://grad.gatech.edu/admissions/application-instructions"] },
 
@@ -525,7 +533,7 @@ const SCHOOLS = [
       rec: rec("3 封，2 封应为学术；不建议多交"),
       form: na("没写"),
     },
-    gaps: ["SOP 补“社会影响”和“对社区的贡献”", "SOP 转 PDF", "成绩单配上评分说明", "SOP 草稿你还没看过"],
+    gaps: ["SOP 补“社会影响”和“对社区的贡献”", "SOP 转 PDF", "成绩单配上评分说明", "SOP 还没定稿"],
     note: "提交后不能改。",
     src: ["https://economics.ucr.edu/graduate-program/apply/", "https://graduate.ucr.edu/admission-requirements"] },
 
@@ -540,7 +548,7 @@ const SCHOOLS = [
       rec: rec("3 封，不建议多交"),
       form: na("没写"),
     },
-    gaps: ["写 Life Experiences Statement（1 页）", "SOP 补 weaknesses", "所有文件转 PDF 并带全名", "SOP 草稿你还没看过"],
+    gaps: ["写 Life Experiences Statement（1 页）", "SOP 补 weaknesses", "所有文件转 PDF 并带全名", "SOP 还没定稿"],
     src: ["https://econ.duke.edu/phd-program/prospective-students/application-instructions", "https://gradschool.duke.edu/admissions/application-instructions"] },
 
   { id: "uiuc", name: "UIUC", prog: "PhD in Economics", ddl: "1/10？", ddlFull: "官方页面现在没写日期；1/10 只出现在旧页面的缓存里，要进系统或问 econ-phd@illinois.edu", date: "2027-01-10", fee: "$90",
@@ -554,7 +562,7 @@ const SCHOOLS = [
       rec: rec("3 封"),
       form: na("没写"),
     },
-    gaps: ["写两道必答短答（各 250 词以内）", "确认截止日期", "进系统看 SOP 上限", "成绩单配上评分说明", "SOP 草稿你还没看过"],
+    gaps: ["写两道必答短答（各 250 词以内）", "确认截止日期", "进系统看 SOP 上限", "成绩单配上评分说明", "SOP 还没定稿"],
     note: "截止时没交费，申请会退回未提交状态。",
     src: ["https://economics.illinois.edu/admissions/phd-admissions/phd-application", "https://grad.illinois.edu/admissions/application-instructions/completing-your-graduate-application"] },
 
@@ -569,7 +577,7 @@ const SCHOOLS = [
       rec: rec("3 封，要用信头纸并签名"),
       form: unk("GradCAS 的 Program Materials 问题；Coursework Entry 留空", "在系统里填，我看不到", "系统里填"),
     },
-    gaps: ["Career statement 草稿你还没看过"],
+    gaps: ["Career statement 还没定稿"],
     note: "系里的说明 PDF 列的是另一版六个问题，以系统为准。",
     src: ["https://www.econ.pitt.edu/doctoral/admissions", "https://www.econ.pitt.edu/phd-application-faq"] },
 
@@ -584,7 +592,7 @@ const SCHOOLS = [
       rec: rec("至少 3 封"),
       form: na("没有"),
     },
-    gaps: ["SOP 草稿你还没看过"],
+    gaps: ["SOP 还没定稿"],
     src: ["https://economics.rutgers.edu/academics/graduate/program/prospective-students/graduate-faqs", "https://grad.admissions.rutgers.edu/GraduateProgram/Detail.aspx?id=a501U0000004gNmQAI"] },
 
   { id: "cuny", name: "CUNY Graduate Center", prog: "PhD in Economics", ddl: "2/1", ddlFull: "2027/2/1 晚 11:59（东部时间）", date: "2027-02-01", fee: "$75 + 2.65%",
@@ -598,7 +606,7 @@ const SCHOOLS = [
       rec: rec("至少 2 封，最好 3–4 封；也要在截止日前到"),
       form: na("没有"),
     },
-    gaps: ["要交写作样本的话，加上出生日期", "SOP 草稿你还没看过"],
+    gaps: ["要交写作样本的话，加上出生日期", "SOP 还没定稿"],
     src: ["https://www.gc.cuny.edu/economics/admissions-and-aid", "https://www.gc.cuny.edu/admissions-aid/how-apply/frequently-asked-questions"] },
 ];
 
@@ -638,7 +646,7 @@ const METHOD = [
   "**SOP 的要求**来自 2026-11-21／22 查的官方页面，以及你登录系统后告诉我的三处（Columbia、UCLA、UC Irvine）。",
   "**SOP 以外的要求**是 2026-11-24 让四个后台查询去读各校经济系和研究生院的官方页面得到的。只记页面写明的内容，页面没写的标“没写”，两处说法不一的照录。查询返回的结果我没有逐条再点开核对，卡片底部有来源链接。",
   "**现在的情况**是 2026-11-24 量的：词数按空格计；页数按 Times New Roman 12 号字、1 英寸页边距估算，不是 Word 的实际排版。",
-  "**“满足·草稿”**指文件对得上要求，但内容你还没逐份看过（后来的 15 所）。**“满足·待确认”**指文件在 `个人陈述_待确认/` 里，你还没确认。",
+  "**“满足·草稿”**指文件对得上要求，内容还没定稿（后来的 15 所，你说完成了 70%）。**“满足·待确认”**指文件在 `个人陈述_待确认/` 里，你还没确认。",
   "这张表不带打勾功能。旧的 `网申材料/各校SOP格式要求.html` 里的词数和文件路径已经过时，我没有改它。",
 ];
 
@@ -650,6 +658,7 @@ const $ = id => document.getElementById(id);
 const days = d => Math.round((new Date(d + "T00:00:00") - new Date(TODAY + "T00:00:00")) / 86400000);
 
 $("intro").innerHTML = fmt(INTRO);
+$("prog").innerHTML = PROGRESS.map(([t, p]) => `<div>${fmt(t)}<b>${p}%</b><i style="--p:${p}%"></i></div>`).join("");
 $("general").tBodies[0].innerHTML = GENERAL.map(r => `<tr><td>${fmt(r[0])}</td><td>${fmt(r[1])}</td><td>${chip(r[2], r[4])}</td><td>${fmt(r[3])}</td></tr>`).join("");
 
 const sorted = [...SCHOOLS].sort((a, b) => a.date.localeCompare(b.date) || a.name.localeCompare(b.name));
