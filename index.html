@@ -103,7 +103,7 @@
   <h2>一、所有学校通用的材料</h2>
   <div class="wrap"><table id="general"><thead><tr><th>材料</th><th>现在有什么</th><th>状态</th><th>说明</th></tr></thead><tbody></tbody></table></div>
 
-  <h2>二、一眼看全：30 所 × 8 类材料</h2>
+  <h2>二、一眼看全：29 所 × 8 类材料</h2>
   <p class="muted">按截止日期排。点学校名跳到下面的详细要求。</p>
   <div class="wrap"><table id="matrix"></table></div>
 
@@ -135,7 +135,7 @@ const LABEL = { ok: "满足", warn: "要处理", bad: "缺", unk: "看不到", n
 
 // SOP 完成度：你 2026-11-24 说的
 const PROGRESS = [["SOP：之前的 15 所（`sop/1_之前的15所/`）", 99], ["SOP：后来的 15 所（`sop/2_后来的15所/`）", 70]];
-const INTRO = "整理于 2026-11-24。左边是各校官方页面写明的要求，右边是你文件夹里现在的文件，量过之后对照。“满足”只说明文件对得上记录到的要求；网申系统里的栏位和送分，我看不到。你 11/24 确认过的几点已写进表里：SOP 之前的 15 所完成 99%，后来的 15 所完成 70%；CMU 走 Heinz；推荐信已经满足；GRE 有，语言成绩没有，本科四年都在美国；官方成绩单要去线上订。";
+const INTRO = "整理于 2026-11-24。左边是各校官方页面写明的要求，右边是你文件夹里现在的文件，量过之后对照。“满足”只说明文件对得上记录到的要求；网申系统里的栏位和送分，我看不到。你 11/24 确认过的几点已写进表里：SOP 之前的 15 所完成 99%，后来的 15 所完成 70%；CMU 走 Heinz；推荐信已经满足；GRE 有，语言成绩没有，本科四年都在美国；官方成绩单要去线上订；Georgia Tech 从表里删去。";
 
 // 常用的“现在的情况”
 const TR_HAVE = "USC、BU、Rutgers、UIUC NetMath 四份非官方成绩单都在";
@@ -158,16 +158,16 @@ const cv = req => ok(req, CVF);
 const tr = req => ok(req, TR_HAVE);
 
 const GENERAL = [
-  ["SOP", "`sop/1_之前的15所/` 和 `sop/2_后来的15所/` 各 15 份 .docx。另一个会话今天 15:02 改过其中 27 份（gap 句改回冒号，Harris 的 fit 段第一句换了），下面的词数是改完之后量的", "warn", "**你 11/24 说：之前的 15 所完成 99%，后来的 15 所完成 70%。** 表里后来的 15 所标“满足·草稿”。**30 份都没有 PDF**，Maryland、Duke、UCSB、UC Riverside 写明要 PDF", "看各校"],
+  ["SOP", "`sop/1_之前的15所/` 和 `sop/2_后来的15所/` 各 15 份 .docx。另一个会话今天 15:02 改过其中 27 份（gap 句改回冒号，Harris 的 fit 段第一句换了），下面的词数是改完之后量的", "warn", "**你 11/24 说：之前的 15 所完成 99%，后来的 15 所完成 70%。** 表里后来的 15 所标“满足·草稿”。**这些文件都没有 PDF**，Maryland、Duke、UCSB、UC Riverside 写明要 PDF", "看各校"],
   ["其他文书", "你的个人陈述有三个长度（250／500／750 词，在 `网申材料/`）；其中 8 所学校另存了分校版，在 `个人陈述_待确认/`，和原稿只差几个字", "warn", "要个人陈述类文书的学校，现成的三个版本都能对上长度：Northwestern 和 Brown 用 250 词版，Cornell 和 Duke 用 500 词版，UIUC 的 Q1 用 250 词版。**真正还没有文字的只有两篇**：CMU Heinz 的 Research Proposal（1200 词以内）和 UIUC 的短答 Q2。Emory 那篇要不要交得进系统看", "缺 2 篇"],
   ["CV", CVF + "，11/24 更新", "ok", "三所有特殊要求：UCSB 要写每周小时数，Michigan 要加页眉，Northwestern 要求高中以后不留空档"],
   ["写作样本", "完整版 52 页、25 页版，都是双倍行距，独立署名", "ok", "Princeton（最多 25 页）和 Columbia（30 页双倍行距）用 25 页版。UCLA、Michigan、UCSB 写明不要交。CUNY 要求文件上写出生日期"],
-  ["成绩单", TR_HAVE + "，另有四合一的合并版。USC 那份是 2026-08-26 下载的，只到 2026 夏季", "bad", "**官方成绩单要去线上订**（你 11/24 说的）。USC 的官方版：Michigan、UCSB、Emory、Georgia Tech、USC 研究生院要扫描件，CMU Heinz 要评审前到，Boston College 的语言豁免也要。BU、Rutgers、UIUC 的官方版：UCSB、Emory、Georgia Tech 要每所学校的。另外 UCLA 要在成绩单上圈课程，几所要带评分说明", "要线上订"],
+  ["成绩单", TR_HAVE + "，另有四合一的合并版。USC 那份是 2026-08-26 下载的，只到 2026 夏季", "bad", "**官方成绩单要去线上订**（你 11/24 说的）。USC 的官方版：Michigan、UCSB、Emory、USC 研究生院要扫描件，CMU Heinz 要评审前到，Boston College 的语言豁免也要。BU、Rutgers、UIUC 的官方版：UCSB、Emory 要每所学校的。另外 UCLA 要在成绩单上圈课程，几所要带评分说明", "要线上订"],
   ["GRE", "2025-09-09，家考，V167 Q170 AW5.5", "unk", "各校送分情况我看不到。Berkeley 写官方成绩 12/1 前要到。**Michigan 不收 GRE**。**Yale 写家考成绩只在没有其他选择时才接受**。Pittsburgh 和 Emory 本轮可选", "送分看不到"],
   ["语言成绩", "没有托福或雅思；本科四年都在美国（Rutgers、BU、USC）", "warn", "多数学校按“美国本科学位”或“在美国读满一两年”就免，你都符合。条文和你的情况对不上，或要另备材料的有 7 所：Yale（看的是授学位的学校，要读满三年，你在 USC 约两年半）、Northwestern（写的是本科所有年份都在同一所学校）、Princeton 和 Michigan（要一份授课语言证明）、Boston College（要官方成绩单）、Harris（适用哪条规则没写清）、UC Irvine（另有助教英语标准）。UNC、JHU、Cornell 要在系统里主动申请或声明豁免", "7 所要处理"],
   ["推荐信", "`recommendation/` 里是发给推荐人的材料包（CV、SOP、成绩单、RA 工作摘要、学校名单、写作样本），其中 CV 和写作样本是 11 月中旬的旧版", "ok", "**你 11/24 说推荐信已经满足。** 各校的封数要求留在下面备查：多数 3 封；JHU 和 CUNY 至少 2 封；Princeton 只能 3 封"],
   ["系里的表格", "UNC 和 CU Boulder 的课程表在 `网申材料/`，**都是空白模板**", "bad", "要准备的：UCSB 的 Description of Academic Background（缺了申请会被关闭）、Maryland 两份、UNC 课程表、CU Boulder 课程表、Northwestern 的 Courses Form、JHU 的在读课程清单。Princeton 的课程清单在系统里填", "缺 7 份"],
-  ["申请费", "30 所合计约 3,020 美元（CMU Heinz 免费；不含 Berkeley 4.22% 和 CUNY 2.65% 的手续费）", "unk", "交没交我看不到。Maryland 交费后才处理；UIUC 截止时没交费，申请会退回未提交状态"],
+  ["申请费", "29 所合计约 2,915 美元（CMU Heinz 免费；不含 Berkeley 4.22% 和 CUNY 2.65% 的手续费）", "unk", "交没交我看不到。Maryland 交费后才处理；UIUC 截止时没交费，申请会退回未提交状态"],
 ];
 
 const SCHOOLS = [
@@ -507,21 +507,6 @@ const SCHOOLS = [
     gaps: ["订一份官方成绩单（语言豁免用）", "SOP 还没定稿"],
     src: ["https://www.bc.edu/bc-web/schools/morrissey/departments/economics/graduate/admissions.html", "https://www.bc.edu/bc-web/schools/mcas/graduate/admission.html"] },
 
-  { id: "gatech", name: "Georgia Tech", prog: "PhD in Economics", ddl: "1/4", ddlFull: "系统写 2027/1/4 晚 11:59（东部时间）；系里写 1/1 优先；FAQ 建议国际生 12/1 前交完", date: "2027-01-04", fee: "$105",
-    items: {
-      sop: warn("题目进系统看", "题目和上限只在申请系统里", "1083 词，约 1.9 页；草稿"),
-      essay: unk("没公开；系统的 Supplemental 部分按项目而定", "—", "进系统看"),
-      ws: na("没写"),
-      cv: ok("在 Employment 部分上传", CVF),
-      tr: bad("缺官方版", "所有读过的大学；可以交官方成绩单的复印件，但**不收 web transcript 和学生系统的成绩单**，交了申请会被搁置", TR_ONLY_UNOFF),
-      test: gre("GRE 必交（代码 5248／4301）。语言：从美国院校拿到学位即满足（在读的情况没写）"),
-      rec: rec("3 封"),
-      form: na("没写"),
-    },
-    gaps: ["线上订四所学校的官方成绩单", "进系统看文书题目和上限", "系里建议国际生 12/1 前交完", "SOP 还没定稿"],
-    note: "提交后不能改。这个项目没有 labor 方向；申不申你还没定。",
-    src: ["https://gradapp.gatech.edu/portal/program-info?cmd=view-program&program=62c4f7df-5c59-69b6-6d3a-627d030ec21d", "https://econ.gatech.edu/phd-economics/faq", "https://grad.gatech.edu/admissions/application-instructions"] },
-
   { id: "ucr", name: "UC Riverside", prog: "PhD in Economics", ddl: "1/5", ddlFull: "1/5（奖学金和录取；年份没写）", date: "2027-01-05", fee: "$155",
     items: {
       sop: warn("要转 PDF；缺两项内容", "Graduate Statement of Purpose，不超过 2000 词，上传 PDF；题目列了六个方面：背景、研究兴趣、与 UCR 的契合、动机、未来目标和社会影响、对学术和 UCR 社区的贡献", "1085 词，只有 .docx；“社会影响”和“对社区的贡献”正文没有专门写；草稿"),
@@ -619,7 +604,6 @@ const ESSAYS = [
   ["Duke", "1/6", "Life Experiences Statement，必交，不超过 1 页单倍行距", "塑造你的人生经历，以及你会怎样用它们为 Duke 的学术社区做贡献", "用你的 500 词版（497 词，正好 1 页）；Duke 要求文件上有全名、只收 PDF，现在的文件上没有姓名", "warn", "有，要加姓名"],
   ["UIUC", "1/10？", "**两道必答短答**，各不超过 250 词", "Q1：塑造你学业和职业发展的关键经历、机会或困难（含经济或机会上的障碍）。Q2：和不同观点、能力或经历的同伴共事的一个例子，以及你学到了什么", "Q1 用你的 250 词版。**Q2 没有现成的文字**", "bad", "缺 Q2"],
   ["Emory", "1/1", "Statement on Building Collaborative and Respectful Graduate Communities，不超过 500 词", "Laney 写“按项目建议或必交”，经济系页面没提，Laney 自己那页的标题是 Optional Diversity Statement", "没有专门的文件；500 词版可以作底稿", "unk", "进系统看"],
-  ["Georgia Tech", "1/4", "系统里 Supplemental 部分的题目", "没有公开，按项目而定", "—", "unk", "进系统看"],
   ["UC Berkeley", "12/1", "Personal History Statement，必交，不超过 3 页双倍行距", "背景和人生经历如何影响你现在读研的决定；不能和 SOP 重复", "`个人陈述_待确认/PS_UC_Berkeley.docx`，765 词，3 页", "ok", "满足·待确认", true],
   ["Princeton", "12/1", "Personal Statement，必交，不超过 250 词", "一段影响你读研决定的个人经历，以及它如何丰富 Princeton 的学术社区", "`PS_Princeton.docx`，249 词", "ok", "满足·待确认", true],
   ["UCLA", "12/1", "Personal Statement，必交，500 词", "官网没写题目；用于 Cota-Robles 奖学金评审", "`PS_UCLA.docx`，497 词", "ok", "满足·待确认", true],
@@ -647,6 +631,7 @@ const METHOD = [
   "**SOP 以外的要求**是 2026-11-24 让四个后台查询去读各校经济系和研究生院的官方页面得到的。只记页面写明的内容，页面没写的标“没写”，两处说法不一的照录。查询返回的结果我没有逐条再点开核对，卡片底部有来源链接。",
   "**现在的情况**是 2026-11-24 量的：词数按空格计；页数按 Times New Roman 12 号字、1 英寸页边距估算，不是 Word 的实际排版。",
   "**“满足·草稿”**指文件对得上要求，内容还没定稿（后来的 15 所，你说完成了 70%）。**“满足·待确认”**指文件在 `个人陈述_待确认/` 里，你还没确认。",
+  "**Georgia Tech** 按你 11/24 说的从表里删去了，现在是 29 所。`sop/2_后来的15所/SOP_Georgia_Tech.docx` 还在文件夹里，没有动。",
   "这张表不带打勾功能。旧的 `网申材料/各校SOP格式要求.html` 里的词数和文件路径已经过时，我没有改它。",
 ];
 
