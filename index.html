@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>各校申请材料总表</title>
+<style>
+  :root {
+    --bg: #f6f5f1; --card: #ffffff; --ink: #1f2328; --muted: #646b73; --line: #dedbd2;
+    --accent: #2f5d50; --ok-bg: #e3f1e7; --ok-ink: #1d5a33; --warn-bg: #fbefd0; --warn-ink: #7a5200;
+    --bad-bg: #fbe1dd; --bad-ink: #9a2318; --unk-bg: #e6e8ee; --unk-ink: #3d4a66; --na-ink: #a3a7ad; --code-bg: #eeece6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17191c; --card: #1f2226; --ink: #e7e5e0; --muted: #a0a6ad; --line: #353a40;
+      --accent: #8fc7b3; --ok-bg: #1d3a28; --ok-ink: #a5dcb6; --warn-bg: #43350f; --warn-ink: #f1d17e;
+      --bad-bg: #4a211c; --bad-ink: #f5b3aa; --unk-bg: #2a3142; --unk-ink: #b9c4de; --na-ink: #6b7078; --code-bg: #2a2e33;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.65 -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
+  main { max-width: 1120px; margin: 0 auto; padding: 28px 16px 64px; }
+  h1 { font-size: 26px; margin: 0 0 8px; }
+  h2 { font-size: 19px; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+  p, li { margin: 0 0 6px; }
+  .muted { color: var(--muted); font-size: 13.5px; }
+  code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; font-size: 13px; word-break: break-all; }
+  a { color: var(--accent); word-break: break-all; }
+  ul { padding-left: 20px; margin: 8px 0; }
+
+  .chip { display: inline-block; font-size: 12.5px; line-height: 1.5; padding: 1px 8px; border-radius: 999px; white-space: nowrap; }
+  .ok { background: var(--ok-bg); color: var(--ok-ink); }
+  .warn { background: var(--warn-bg); color: var(--warn-ink); }
+  .bad { background: var(--bad-bg); color: var(--bad-ink); }
+  .unk { background: var(--unk-bg); color: var(--unk-ink); }
+  .na { color: var(--na-ink); font-size: 12.5px; white-space: nowrap; }
+  .chip.draft { outline: 1px dashed currentColor; outline-offset: -1px; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 12px 0; font-size: 13.5px; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 14px 0; }
+  .tile { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+  .tile b { display: block; font-size: 24px; font-variant-numeric: tabular-nums; }
+  .tile span { color: var(--muted); font-size: 13px; }
+
+  .wrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 500; white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  #matrix td, #matrix th { text-align: center; padding: 7px 8px; }
+  #matrix td:first-child, #matrix th:first-child { text-align: left; white-space: nowrap; font-weight: 600; position: sticky; left: 0; background: var(--card); }
+  #matrix td:nth-child(2), #matrix th:nth-child(2) { text-align: left; white-space: nowrap; color: var(--muted); font-weight: 400; }
+  #matrix td.gap { text-align: left; min-width: 260px; font-size: 13.5px; }
+  #matrix tr.sep td { background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 500; text-align: left; position: static; }
+  #matrix a { color: inherit; text-decoration: none; }
+  #matrix a:hover { text-decoration: underline; }
+  #general td:first-child, #essays td:first-child { white-space: nowrap; font-weight: 600; }
+  #essays td:nth-child(2), #essays td:last-child { white-space: nowrap; }
+  #essays td:nth-child(3) { min-width: 150px; }
+  #essays td:nth-child(4) { min-width: 260px; }
+
+  .bar { position: sticky; top: 0; z-index: 2; background: var(--bg); padding: 10px 0; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .bar label { cursor: pointer; }
+  .bar input { width: 16px; height: 16px; vertical-align: -2px; accent-color: var(--accent); }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; margin: 12px 0; padding: 12px 14px; scroll-margin-top: 56px; }
+  .head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 6px; }
+  .head h3 { font-size: 16.5px; margin: 0; }
+  .head .ddl { color: var(--muted); font-size: 13.5px; }
+  .head .days { margin-left: auto; }
+  .card table td:first-child { white-space: nowrap; font-weight: 600; width: 6.5em; }
+  .card table td:last-child { white-space: nowrap; width: 1%; }
+  .card table th, .card table td { padding: 6px 10px; }
+  .gaps { margin: 8px 0 0; padding: 8px 12px; border-radius: 8px; background: var(--bg); font-size: 14px; }
+  .gaps ul { margin: 4px 0 0; }
+  .src { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+  @media (max-width: 640px) { .card table td:first-child { white-space: normal; width: auto; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>各校申请材料总表</h1>
+  <p class="muted" id="intro"></p>
+
+  <div class="tiles" id="tiles"></div>
+  <div class="legend">
+    <span><span class="chip ok">满足</span> 文件在，量过，在记录到的要求以内</span>
+    <span><span class="chip ok draft">满足·草稿</span> 对得上要求，但内容你还没看过或没确认</span>
+    <span><span class="chip warn">要处理</span> 要转 PDF、要在 Word 里确认页数、要向学校确认，或缺一部分</span>
+    <span><span class="chip bad">缺</span> 学校要、文件夹里没有</span>
+    <span><span class="chip unk">看不到</span> 在网申系统里，我没法核对</span>
+    <span class="na">— 不需要或没有这一项</span>
+  </div>
+
+  <h2>一、所有学校通用的材料</h2>
+  <div class="wrap"><table id="general"><thead><tr><th>材料</th><th>现在有什么</th><th>状态</th><th>说明</th></tr></thead><tbody></tbody></table></div>
+
+  <h2>二、一眼看全：30 所 × 8 类材料</h2>
+  <p class="muted">按截止日期排。点学校名跳到下面的详细要求。</p>
+  <div class="wrap"><table id="matrix"></table></div>
+
+  <h2>三、其他文书：每一篇是什么、缺不缺</h2>
+  <p class="muted">“其他文书”指 SOP 以外要写的东西。先列还没有文件的，再列要进系统确认的、已有待确认的、可选的。</p>
+  <div class="wrap"><table id="essays"><thead><tr><th>学校</th><th>截止</th><th>文书和长度</th><th>要写什么</th><th>现在的情况</th><th>状态</th></tr></thead><tbody></tbody></table></div>
+  <p class="muted" id="noessay"></p>
+
+  <h2>四、各校详细要求和现状</h2>
+  <div class="bar">
+    <label><input type="checkbox" id="onlyGap"> 只看“缺”和“要处理”的行</label>
+    <label><input type="checkbox" id="onlySoon"> 只看 12 月 3 日前截止的学校</label>
+  </div>
+  <div id="cards"></div>
+
+  <h2>五、我没法核对的事</h2>
+  <ul id="blind"></ul>
+
+  <h2>六、这张表是怎么来的</h2>
+  <ul id="method"></ul>
+</main>
+
+<script>
+// ---- 数据：改内容只改这里 ----
+// 状态 st：ok 满足 / warn 要处理 / bad 缺 / unk 看不到 / na 不需要
+const TODAY = "2026-11-24";
+const COLS = [["sop","SOP"],["essay","其他文书"],["ws","写作样本"],["cv","CV"],["tr","成绩单"],["test","GRE／语言"],["rec","推荐信"],["form","表格等"]];
+const LABEL = { ok: "满足", warn: "要处理", bad: "缺", unk: "看不到", na: "—" };
+
+const INTRO = "整理于 2026-11-24。左边是各校官方页面写明的要求，右边是你文件夹里现在的文件，量过之后对照。“满足”只说明文件对得上记录到的要求；网申系统里的栏位和送分，我看不到。你 11/24 确认过的四点已写进表里：CMU 走 Heinz；推荐信已经满足；GRE 有，语言成绩没有，本科四年都在美国；官方成绩单要去线上订。";
+
+// 常用的“现在的情况”
+const TR_HAVE = "USC、BU、Rutgers、UIUC NetMath 四份非官方成绩单都在";
+const TR_ONLY_UNOFF = "文件夹里只有学生系统导出的非官方版；官方版要去线上订（你 11/24 说的）";
+const TR_NO_LEGEND = TR_HAVE + "；几份里都没看到评分说明";
+const GRE_HAVE = "GRE 有（2025-09-09，家考，V167 Q170 AW5.5）；送没送分我看不到。没有语言成绩，本科四年都在美国";
+const CVF = "`Fangyu_Liu_CV.pdf`，2 页";
+const WS_ALL = "`fangyu_writing_sample.pdf`（52 页）和 25 页版都在";
+const PSD = "个人陈述_待确认/";
+const ok = (req, now, tag) => ({ st: "ok", req, now, tag });
+const draft = (req, now) => ({ st: "ok", req, now, tag: "满足·草稿", draft: true });
+const pend = (req, now) => ({ st: "ok", req, now, tag: "满足·待确认", draft: true });
+const warn = (tag, req, now) => ({ st: "warn", req, now, tag });
+const bad = (tag, req, now) => ({ st: "bad", req, now, tag });
+const unk = (req, now, tag) => ({ st: "unk", req, now, tag });
+const na = (req, now, tag) => ({ st: "na", req, now: now || "—", tag });
+const rec = req => ok(req, "你 11/24 说推荐信已经满足");
+const gre = (req, extra) => unk(req, GRE_HAVE + (extra ? "。" + extra : ""));
+const cv = req => ok(req, CVF);
+const tr = req => ok(req, TR_HAVE);
+
+const GENERAL = [
+  ["SOP", "`sop/1_之前的15所/` 和 `sop/2_后来的15所/` 各 15 份 .docx。另一个会话今天 15:02 改过其中 27 份（gap 句改回冒号，Harris 的 fit 段第一句换了），下面的词数是改完之后量的", "warn", "第一批你逐句定过；第二批是草稿，你还没逐份看。**30 份都没有 PDF**，Maryland、Duke、UCSB、UC Riverside 写明要 PDF", "看各校"],
+  ["其他文书", "你的原稿三版（250／500／750 词，在 `网申材料/`）；8 所学校的分校版在 `个人陈述_待确认/`：Berkeley、Columbia、Maryland、Michigan、Princeton、UCLA、UC Irvine、UCSB", "bad", "**还没有文件的 6 所**，每篇的题目见第三部分：CMU Heinz 的 Research Proposal、Northwestern 的 Personal Statement、Cornell 的 Personal Statement、Brown 的 Supplemental Essay、Duke 的 Life Experiences Statement、UIUC 的两道必答短答。Emory 那篇要不要交得进系统看", "缺 6 所"],
+  ["CV", CVF + "，11/24 更新", "ok", "三所有特殊要求：UCSB 要写每周小时数，Michigan 要加页眉，Northwestern 要求高中以后不留空档"],
+  ["写作样本", "完整版 52 页、25 页版，都是双倍行距，独立署名", "ok", "Princeton（最多 25 页）和 Columbia（30 页双倍行距）用 25 页版。UCLA、Michigan、UCSB 写明不要交。CUNY 要求文件上写出生日期"],
+  ["成绩单", TR_HAVE + "，另有四合一的合并版。USC 那份是 2026-08-26 下载的，只到 2026 夏季", "bad", "**官方成绩单要去线上订**（你 11/24 说的）。USC 的官方版：Michigan、UCSB、Emory、Georgia Tech、USC 研究生院要扫描件，CMU Heinz 要评审前到，Boston College 的语言豁免也要。BU、Rutgers、UIUC 的官方版：UCSB、Emory、Georgia Tech 要每所学校的。另外 UCLA 要在成绩单上圈课程，几所要带评分说明", "要线上订"],
+  ["GRE", "2025-09-09，家考，V167 Q170 AW5.5", "unk", "各校送分情况我看不到。Berkeley 写官方成绩 12/1 前要到。**Michigan 不收 GRE**。**Yale 写家考成绩只在没有其他选择时才接受**。Pittsburgh 和 Emory 本轮可选", "送分看不到"],
+  ["语言成绩", "没有托福或雅思；本科四年都在美国（Rutgers、BU、USC）", "warn", "多数学校按“美国本科学位”或“在美国读满一两年”就免，你都符合。条文和你的情况对不上，或要另备材料的有 7 所：Yale（看的是授学位的学校，要读满三年，你在 USC 约两年半）、Northwestern（写的是本科所有年份都在同一所学校）、Princeton 和 Michigan（要一份授课语言证明）、Boston College（要官方成绩单）、Harris（适用哪条规则没写清）、UC Irvine（另有助教英语标准）。UNC、JHU、Cornell 要在系统里主动申请或声明豁免", "7 所要处理"],
+  ["推荐信", "`recommendation/` 里是发给推荐人的材料包（CV、SOP、成绩单、RA 工作摘要、学校名单、写作样本），其中 CV 和写作样本是 11 月中旬的旧版", "ok", "**你 11/24 说推荐信已经满足。** 各校的封数要求留在下面备查：多数 3 封；JHU 和 CUNY 至少 2 封；Princeton 只能 3 封"],
+  ["系里的表格", "UNC 和 CU Boulder 的课程表在 `网申材料/`，**都是空白模板**", "bad", "要准备的：UCSB 的 Description of Academic Background（缺了申请会被关闭）、Maryland 两份、UNC 课程表、CU Boulder 课程表、Northwestern 的 Courses Form、JHU 的在读课程清单。Princeton 的课程清单在系统里填", "缺 7 份"],
+  ["申请费", "30 所合计约 3,020 美元（CMU Heinz 免费；不含 Berkeley 4.22% 和 CUNY 2.65% 的手续费）", "unk", "交没交我看不到。Maryland 交费后才处理；UIUC 截止时没交费，申请会退回未提交状态"],
+];
+
+const SCHOOLS = [
+  { id: "berkeley", name: "UC Berkeley", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1 晚 8:59（太平洋时间）", date: "2026-12-01", fee: "$155 + 4.22%",
+    items: {
+      sop: warn("Word 里确认 3 页", "不超过 3 页，双倍行距", "867 词，双倍行距。估算 68 行，按每页 23 行正好排满 3 页，没在 Word 里验证"),
+      essay: pend("Personal History Statement，必交，不超过 3 页双倍行距，不能和 SOP 重复", "`" + PSD + "PS_UC_Berkeley.docx`，765 词，双倍行距，PDF 是 3 页"),
+      ws: ok("可选，只收 PDF，页数没写", WS_ALL, "可选·有"),
+      cv: ok("可选", CVF, "可选·有"),
+      tr: tr("非官方即可；每一所读过的学校都要（含暑期、extension）；不要交 2026 秋季成绩"),
+      test: gre("GRE 必交，只认 ETS 官方成绩，页面写 12/1 前要到；考试记录上的姓名和邮箱要和申请完全一致。语言：美国院校的学位，或一年美国全日制课程（B 以上）即可免"),
+      rec: rec("3 封；截止日一处写 12/12，一处写 12/13"),
+      form: na("没有单独的表格；系统里要填两个方向、两位教授、GPA"),
+    },
+    gaps: ["在 Word 里确认 SOP 是 3 页", "个人陈述还没确认", "GRE 官方成绩要 12/1 前到"],
+    src: ["https://econ.berkeley.edu/graduate/admissions/instructions", "https://grad.berkeley.edu/admissions/application-process/requirements/"] },
+
+  { id: "yale", name: "Yale", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1 晚 11:59（东部时间）", date: "2026-12-01", fee: "$105",
+    items: {
+      sop: ok("500–1000 词；上传，不超过 16MB", "997 词，单倍行距约 1.7 页"),
+      essay: na("页面只列了 statement of academic purpose"),
+      ws: unk("经济系没写；研究生院说项目要求的话，系统会拦住提交", "文件有，要不要交进系统才知道", "进系统看"),
+      cv: cv("必交"),
+      tr: tr("非官方即可，学生系统下载的也收；所有读过的大学"),
+      test: warn("两处要确认", "GRE 必交；**家考成绩只在没有其他选择时才接受**。语言：本科学位学校是英语授课，并且**在该校就读满三年**才免", "你的 GRE 是家考。语言：你本科四年都在美国，但这条看的是授学位的学校，你 2025 年春季转入 USC，到毕业约两年半"),
+      rec: rec("3 封必交，最多 5 封"),
+      form: na("没写"),
+    },
+    gaps: ["向 Yale 确认家考 GRE 收不收", "向 Yale 确认转学生的语言豁免（四年美本，在 USC 两年半）"],
+    note: "提交后还可以通过状态页面上传改过的 statement 或简历。",
+    src: ["https://gsas.yale.edu/admissions/phdmasters-application-process/standardized-testing-requirements", "https://economics.yale.edu/graduate/application-info"] },
+
+  { id: "princeton", name: "Princeton", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1 晚 11:59（东部时间）", date: "2026-12-01", fee: "$90",
+    items: {
+      sop: ok("不超过 1000 词，格式不限；**提交即定稿**", "991 词，单倍行距约 1.7 页"),
+      essay: pend("Personal Statement，必交，不超过 250 词", "`" + PSD + "PS_Princeton.docx`，249 词"),
+      ws: ok("必交，最多 25 页（不含参考文献和标题页）", "`fangyu_writing_sample25.pdf`，连参考文献 25 页"),
+      cv: cv("必交"),
+      tr: warn("要带评分说明", "非官方即可，但每份要带 transcript key；不收系统截图；每个文件不超过 10MB", TR_NO_LEGEND),
+      test: warn("要授课语言证明", "GRE 必交，家考可以。语言：成绩单上要写明全英文授课，或在同一个文件里附学校的证明信", "GRE 有，送分我看不到。成绩单上没有“英语授课”的字样，证明信也没有"),
+      rec: rec("3 封，只能 3 封；发出邀请后不能换人"),
+      form: unk("网申里有 Economics Course List（高阶数学和经济课加教材），并至少选两个研究方向", "在系统里填，我看不到", "系统里填"),
+    },
+    gaps: ["成绩单配上评分说明", "准备“全英文授课”的证明", "填系统里的课程清单", "个人陈述还没确认"],
+    note: "文件不超过 25MB、75 页。",
+    src: ["https://gradschool.princeton.edu/academics/degrees-requirements/fields-study/economics", "https://gradschool.princeton.edu/admission-onboarding/prepare/english-proficiency"] },
+
+  { id: "ucla", name: "UCLA", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1 晚 11:59（太平洋时间）", date: "2026-12-01", fee: "$155",
+    items: {
+      sop: ok("500 词（你 11/21 告知，官网没写）", "499 词"),
+      essay: pend("Personal Statement，必交，500 词（约 1 页单倍行距，1 英寸页边距，12 号字）；用于 Cota-Robles 奖学金评审", "`" + PSD + "PS_UCLA.docx`，497 词，约 1 页"),
+      ws: na("不收，交了也不看", "—", "不收"),
+      cv: cv("必交"),
+      tr: warn("要圈课程", "非官方即可；**转学生两所学校的成绩单都要交**；要在上传的成绩单上**圈出每一门经济、数学、统计课**", TR_HAVE + "；没有圈过课程的版本"),
+      test: gre("GRE 必交，自报成绩可用于评审，12/1 前考完；考试记录的姓名和生日要和申请一致。语言：美国学士学位可免"),
+      rec: rec("3 封（第四封可能不看）；推荐信有两周宽限"),
+      form: na("没有单独的表格"),
+    },
+    gaps: ["做一份圈出经济、数学、统计课的成绩单", "个人陈述还没确认"],
+    note: "12/1 之后不能更新材料。提交时看系统显示的词数，SOP 只余 1 词。",
+    src: ["https://economics.ucla.edu/graduate/prospective-students", "https://grad.ucla.edu/admissions/research-requirements/"] },
+
+  { id: "michigan", name: "Michigan", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1 晚 11:59（东部时间）", date: "2026-12-01", fee: "$90",
+    items: {
+      sop: ok("官网没有上限（你自己按 1000 词封顶）；页眉写文档类型、姓名、项目、U-M ID（如已有）；页边距至少 1 英寸", "992 词，页眉已有，没有 U-M ID"),
+      essay: pend("Personal Statement，必交，500 词，页眉同上，不能和 SOP 重复", "`" + PSD + "PS_Michigan.docx`，正文 497 词，页眉已有；连页眉一起数是 504 词"),
+      ws: na("不要交", "—", "不收"),
+      cv: warn("缺页眉", "必交，页眉同样要写文档类型、姓名、项目", "CV 顶部只有姓名，没有“Curriculum Vitae”和项目名称"),
+      tr: bad("缺官方版", "要注册处出具的官方成绩单的复印件（正反面、带评分标准），**学生系统下载的不行**。只要学位在读或已得的学校；社区大学、非学位、交换的不要交；转学前的四年制学校怎么算，页面没写", TR_ONLY_UNOFF),
+      test: warn("不收 GRE；要语言证明", "**不收 GRE**。语言：本科全程在英语授课学校才免，要把授课语言证明和成绩单一起上传", "GRE 不用送。授课语言证明没有"),
+      rec: rec("3 封，12/1 前到，没有例外"),
+      form: na("没有；页面写不要交课程清单和教材清单"),
+    },
+    gaps: ["线上订 USC 官方成绩单，传扫描件", "准备授课语言证明", "CV 加页眉", "个人陈述还没确认", "BU、Rutgers 的成绩单交不交，问系里"],
+    src: ["https://lsa.umich.edu/econ/doctoral-program/phd-application-process.html", "https://rackham.umich.edu/admissions/applying/statements-curriculum-vitae-resume/"] },
+
+  { id: "cmu", name: "Carnegie Mellon", prog: "Economics and Public Policy，走 Heinz", ddl: "12/1", ddlFull: "12/1（Heinz；时间没写）", date: "2026-12-01", fee: "免费",
+    items: {
+      sop: ok("不超过 1200 词。题目：学术和职业背景、职业目标、PhD 如何帮你实现目标；要写明 (a) 想研究的政策领域和原因，(b) 为什么 Heinz 适合你", "1085 词。结尾段写了联合项目和三位 Heinz 教授，职业目标只有最后一句"),
+      essay: bad("缺 Research Proposal", "**Research Proposal，必交，不超过 1200 词，和 SOP 是两份**：写一个你想做的研究项目，包括想法、为什么重要（对谁重要）、打算怎么做、要回答的主要问题、需要哪类证据。Optional Statement 可选，不超过 250 词，用来解释特殊情况", "没有 Research Proposal 的文件"),
+      ws: na("Heinz 页面没写"),
+      cv: cv("必交，1–2 页；要列出所有兼职和全职工作、起止日期和职责说明"),
+      tr: warn("USC 要订官方版", "**授学士学位的学校的官方成绩单要在评审前到**；其他学校上传非官方版", "BU、Rutgers、UIUC 的非官方版在；USC 的官方版要去线上订，收件方填 Heinz"),
+      test: gre("GRE 或 GMAT 必交，5 年内，成绩须由考试机构直接送。语言：美国本科读满四年并拿美国学士学位可免", "你本科四年都在美国（Rutgers、BU、USC）"),
+      rec: rec("3 封"),
+      form: na("没写"),
+    },
+    gaps: ["写 Research Proposal（1200 词以内）", "线上订 USC 官方成绩单，送到 Heinz"],
+    note: "只能向 Heinz 或 Tepper 其中一边交一份申请。",
+    src: ["https://www.heinz.cmu.edu/programs/phd-programs/admissions-how-to-apply", "https://www.cmu.edu/tepper/programs/phd/admissions/index.html"] },
+
+  { id: "maryland", name: "Maryland", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1（时间没写）", date: "2026-12-01", fee: "$90",
+    items: {
+      sop: warn("要转 PDF", "长度没写；**只收 PDF，不超过 4MB**", "1081 词，约 1.9 页，只有 .docx"),
+      essay: pend("Personal Experience Prompts，建议 100–300 词（必答还是选答，页面没写）", "`" + PSD + "PS_Maryland.docx`，248 词"),
+      ws: ok("可选，最多 3 篇", WS_ALL, "可选·有"),
+      cv: cv("必交"),
+      tr: warn("缺秋季成绩", "PDF 或扫描件即可；高中以后所有学校；**在读的要交秋季学期的成绩单**；加密的成绩单传上去是空白，要打印再扫描", TR_HAVE + "；USC 那份只到 2026 夏季"),
+      test: gre("GRE 必交。语言：持美国大学学位的自动视为达标（在读的情况没写）"),
+      rec: rec("3 封"),
+      form: bad("缺 2 份补充材料", "① Supplementary Application：最多 20 门高阶课程（教师、教材、成绩）加相关工作经历；② Description of Research/Work Experience：可以只写 “Please see my statement of purpose for this information.”", "两份都没有文件"),
+    },
+    gaps: ["SOP 转 PDF", "填 Supplementary Application", "写 Description of Research/Work Experience（可以一句话）", "补一份带秋季学期的 USC 成绩单", "个人陈述还没确认"],
+    note: "交费后才开始处理。",
+    src: ["https://academiccatalog.umd.edu/graduate/programs/economics-econ/", "https://www.econ.umd.edu/graduate/applications-and-admissions-faq"] },
+
+  { id: "unc", name: "UNC Chapel Hill", prog: "PhD in Economics", ddl: "12/1 建议", ddlFull: "研究生院建议国际生 12/1；奖学金建议 12/15；最终 2027/1/12 晚 11:59（东部时间）", date: "2026-12-01", fee: "$95",
+    items: {
+      sop: warn("Word 里看页数", "写在系里的 SOP 表格上；1–2 页单倍行距，必要时可加一页；Word 或 PDF；faculty interest 那页留空", "已用表格，正文 1068 词。估算连表格说明约 2.5 页，没在 Word 里看过"),
+      essay: na("没有；系统里有 community standards 问题"),
+      ws: na("没写"),
+      cv: cv("必交"),
+      tr: tr("只收非官方上传；高中以后每一所学校都要（含暑期）；别校成绩单上的转学分不能代替"),
+      test: gre("GRE 必交，ETS 官方，预留 7 个工作日匹配。语言：已得或将得美国大学学位可免，但要在申请里**主动申请豁免**并上传显示学位在读的成绩单"),
+      rec: rec("3 封"),
+      form: bad("课程表没填", "Mathematics/Economics Course Form：数学、统计、经济、其他相关课程，各一页", "`网申材料/CourseRecordUNCEconomics-1.doc` 是空白模板"),
+    },
+    gaps: ["填课程表", "在 Word 里看 SOP 表格的排版和页数", "在系统里申请语言豁免"],
+    note: "提交后研究生院不能改材料。",
+    src: ["https://gradschool.sites.unc.edu/economics/", "https://gradschool.unc.edu/admissions/instructions/", "https://econ.unc.edu/graduate-program/admissions/"] },
+
+  { id: "usc", name: "USC", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1 晚 8:59（太平洋时间），没有例外", date: "2026-12-01", fee: "$120",
+    items: {
+      sop: warn("Word 里确认 3 页", "不超过 2–3 页，双倍行距（Statement of Purpose 和 Personal Statement 是同一份）", "859 词，双倍行距。估算 68 行，3 页正好排满，没在 Word 里验证"),
+      essay: na("没有"),
+      ws: na("没写"),
+      cv: cv("必交"),
+      tr: warn("两处说法不一", "高中以后所有学校。系里说扫描上传的算非官方，可以先评审；研究生院说要传**官方成绩单的扫描件，不要学生系统的打印件**", TR_ONLY_UNOFF),
+      test: gre("GRE 必交。语言：美国学士学位可免"),
+      rec: rec("3 封，至少 2 封学术"),
+      form: na("没写"),
+    },
+    gaps: ["在 Word 里确认 SOP 不超过 3 页", "成绩单最好换成线上订的官方版"],
+    note: "GRE 或推荐信晚到可以，但材料齐了才评审。",
+    src: ["https://dornsife.usc.edu/econ/doctoral/admissions/", "https://gradadm.usc.edu/prospective-international-students/english-proficiency/"] },
+
+  { id: "uci", name: "UC Irvine", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1（可迟交到 12/15）", date: "2026-12-01", fee: "$155",
+    items: {
+      sop: ok("1200 词，粘贴进文本框（你 11/22 告知）；提交后不能改", "1101 词"),
+      essay: pend("Personal history statement，必交，要和 SOP 分开；长度公开页面没写", "`" + PSD + "PS_UC_Irvine.docx`，765 词"),
+      ws: na("没写"),
+      cv: na("没写", "有 CV，系统里有栏位就交"),
+      tr: tr("非官方即可；每所学校一份，正反面"),
+      test: warn("助教英语标准", "GRE 必交，家考可以。语言：近五年内在英语授课学校拿到本科学位可免（在读的情况没写）；社科学院所有 PhD 申请人还要达到更高的助教英语标准", "GRE 有，送分我看不到。四年美本，语言豁免本身应当符合；助教英语标准对美国本科生怎么算，页面没写，要问学校"),
+      rec: rec("3 封"),
+      form: na("没写"),
+    },
+    gaps: ["问清助教英语标准要不要成绩", "个人陈述还没确认"],
+    note: "粘贴后检查撇号和段落空行有没有变乱。",
+    src: ["https://www.economics.uci.edu/grad/admissions.php", "https://grad.uci.edu/admissions/applying-to-uci/"] },
+
+  { id: "boulder", name: "CU Boulder", prog: "PhD in Economics", ddl: "12/1", ddlFull: "国际生 12/1 晚 10:00（山地时间）", date: "2026-12-01", fee: "$80",
+    items: {
+      sop: ok("长度没写；Word 或 PDF；这份同时当作个人陈述和写作样本", "1073 词，约 1.9 页"),
+      essay: na("Diversity statement 可选，长度没写", "可以用你现成的 250／500／750 词版", "可选"),
+      ws: na("不单独收"),
+      cv: ok("系里没列，系统里有简历栏", CVF),
+      tr: tr("非官方即可；每一所学校都要，包括别校成绩单上显示的转学分"),
+      test: gre("GRE 必交（verbal 和 quantitative），ETS 官方，代码 4841。语言：研究生院说在美国全日制读满一年即可免；课程目录里另有一句写在英语国家读过大学也要托福", "按研究生院的写法你符合；两处说法不一，稳妥起见可以问一句系里"),
+      rec: rec("3 封，也要在截止日前到"),
+      form: bad("课程表没填", "Coursework Completed in Economics and Mathematics（2 页）；官方提示要用 Adobe Reader 填写保存", "`网申材料/2023-2024_applicationsupplement_courseworkcompletedformccf.pdf` 一格都没填"),
+    },
+    gaps: ["填课程表"],
+    note: "多交的材料不看，还会拖慢处理。",
+    src: ["https://www.colorado.edu/economics/graduate-program", "https://www.colorado.edu/graduateschool/admissions/where-begin/international-students/english-proficiency-requirements"] },
+
+  { id: "ucsd", name: "UC San Diego", prog: "PhD in Economics", ddl: "12/2", ddlFull: "12/2（时间没写）", date: "2026-12-02", fee: "$155",
+    items: {
+      sop: ok("2500 词；只接受在线提交", "1127 词"),
+      essay: na("页面没写其他文书"),
+      ws: ok("必交；本人写的研究或课程论文；PDF；页数没写", WS_ALL),
+      cv: ok("可选，建议交", CVF),
+      tr: warn("缺评分说明", "非官方即可；高中以后所有学校，正反面，带评分说明", TR_NO_LEGEND),
+      test: gre("GRE 必交（系里要官方成绩，研究生院说提交时自报）。语言：美国院校的学士学位、B 以上可免"),
+      rec: rec("3 封"),
+      form: na("没写"),
+    },
+    gaps: ["成绩单配上评分说明"],
+    note: "提交后不能改，但可以通过系统补成绩单和 CV。",
+    src: ["https://economics.ucsd.edu/graduate-program/prospective-students/index.html", "https://grad.ucsd.edu/admissions/requirements/international-students/english-proficiency.html"] },
+
+  { id: "ucsb", name: "UC Santa Barbara", prog: "PhD in Economics", ddl: "12/2", ddlFull: "12/2（奖学金优先）；最终 12/16", date: "2026-12-02", fee: "$155",
+    items: {
+      sop: warn("要转 PDF", "建议不超过 2 页单倍行距；右上角写姓名（Last, First）和文书标题；PDF，不超过 9MB", "1096 词，估算约 1.9 页，页眉已有；只有 .docx"),
+      essay: pend("Personal History Statement，必交，至少 250 词，建议不超过 2 页单倍行距，同样的页眉，不能和 SOP 重复", "`" + PSD + "PS_UC_Santa_Barbara.docx`，765 词，约 1.3 页，页眉已有，有 PDF"),
+      ws: na("不要求；页面写不要上传系里没要的文件", "—", "不要传"),
+      cv: warn("缺每周小时数", "必交；要列出高中以来的工作和志愿活动，写明起止日期和**每周小时数**", "CV 有起止日期，没有每周小时数"),
+      tr: bad("缺官方版", "要官方成绩单的扫描件或注册处的电子版，所有学校（含转学分）；**非官方版和照片不收**", TR_ONLY_UNOFF),
+      test: gre("GRE 必交，没有豁免。语言：在英语授课的美国院校完成学位可免（在读的情况没写）"),
+      rec: rec("3 封，最多 4 封；推荐人只能传 PDF"),
+      form: bad("缺 Academic Background", "**Description of Academic Background（系里模板）必交，缺了申请会被当作不完整直接关闭**", "没有文件"),
+    },
+    gaps: ["填 Description of Academic Background", "线上订四所学校的官方成绩单", "CV 加每周小时数", "SOP 转 PDF", "个人陈述还没确认"],
+    note: "提交后不可撤回。",
+    src: ["https://econ.ucsb.edu/programs/graduate/apply", "https://www.graddiv.ucsb.edu/admissions/how-complete-online-application"] },
+
+  { id: "columbia", name: "Columbia", prog: "PhD in Economics", ddl: "12/3", ddlFull: "12/3 晚 11:59（东部时间）", date: "2026-12-03", fee: "$125",
+    items: {
+      sop: ok("大约 1000 词（你 11/22 告知；GSAS 官网写不超过 1000 词）", "989 词"),
+      essay: pend("Personal statement，必交，500–1000 词", "`" + PSD + "PS_Columbia.docx`，765 词"),
+      ws: ok("必交；GSAS 写 30 页、双倍行距，系里 FAQ 写建议不超过 30 页；须是你署名的研究论文", "25 页版是双倍行距，符合；52 页的完整版超了"),
+      cv: cv("必交"),
+      tr: warn("缺评分说明", "非官方即可；每所学校一个 PDF，小于 2MB，带评分说明", TR_NO_LEGEND + "；四份都小于 2MB"),
+      test: gre("GRE 必交，家考可以，官方成绩在截止后两周内到。语言：美国本科学位且在那里读满两年即免，不用交豁免表"),
+      rec: rec("3 封（至少 2 封学术），最多 4 封"),
+      form: na("系统里选 track"),
+    },
+    gaps: ["成绩单配上评分说明", "个人陈述还没确认"],
+    src: ["https://www.gsas.columbia.edu/content/economics-phd", "https://www.gsas.columbia.edu/content/frequently-asked-questions"] },
+
+  { id: "harris", name: "UChicago Harris", prog: "PhD in Public Policy", ddl: "12/3", ddlFull: "12/3（时间没写）", date: "2026-12-03", fee: "$90",
+    items: {
+      sop: ok("Research Statement，800 词", "795 词，双倍行距约 2.8 页"),
+      essay: na("没有"),
+      ws: ok("必交，PDF，最好是独立署名的研究论文；页数没写", WS_ALL),
+      cv: cv("必交（resume）"),
+      tr: tr("非官方即可；PhD 部分写所有读过的学校"),
+      test: warn("语言豁免要确认", "GRE 必交，不能免，自报成绩可用于评审。语言：符合豁免条件，或交托福／雅思；芝大研究生院的豁免规则（十年内在美国读满一学年）写明不覆盖 Harris", "GRE 有，送分我看不到。你四年美本，符合芝大研究生院那条规则，但它写明不覆盖 Harris，所以要向 Harris 确认"),
+      rec: rec("3 封"),
+      form: na("没写"),
+    },
+    gaps: ["向 Harris 确认语言豁免"],
+    src: ["https://harris.uchicago.edu/admissions/requirements-and-deadlines", "https://grad.uchicago.edu/admissions/apply/english-language-requirements/"] },
+
+  { id: "penn", name: "UPenn", prog: "PhD in Economics", ddl: "12/8", ddlFull: "12/8 晚 11:59（东部时间）", date: "2026-12-08", fee: "$90",
+    items: {
+      sop: draft("只有一篇文书，建议约 500 词；上传到 Slate", "500 词"),
+      essay: na("没有"),
+      ws: ok("可选，页数没写", WS_ALL, "可选·有"),
+      cv: na("没写", "有 CV，系统里有栏位就交"),
+      tr: tr("非官方或官方都行，每所大学一份"),
+      test: gre("GRE 必交，不能免。语言：已得或将得美国本科学位可免"),
+      rec: rec("3 封，可加第四封；不收 Interfolio"),
+      form: na("没写"),
+    },
+    gaps: ["SOP 草稿你还没看过"],
+    src: ["https://economics.sas.upenn.edu/graduate/prospective-students/admissions-information-phd-program-economics", "https://economics.sas.upenn.edu/graduate/prospective-students/frequently-asked-questions"] },
+
+  { id: "northwestern", name: "Northwestern", prog: "PhD in Economics", ddl: "12/15", ddlFull: "12/15 晚 11:59（中部时间）", date: "2026-12-15", fee: "$95",
+    items: {
+      sop: draft("Academic Statement of Purpose，500–1000 词", "981 词"),
+      essay: bad("缺 Personal Statement", "Personal Statement，研究生院要求所有人必交，125–250 词；写关键经历、服务或领导经历，不能和 SOP 重复", "没有文件。你的 250 词版 diversity statement 可以作底稿"),
+      ws: ok("可选，最多一篇", WS_ALL, "可选·有"),
+      cv: warn("看有没有空档", "必交；要涵盖高中以后的全部经历，不能有空档", CVF + "；有没有空档要你自己过一眼"),
+      tr: tr("每所学校的扫描件；现阶段不要官方版"),
+      test: warn("转学生豁免要确认", "GRE 必交，家考可以。语言：本科学位是英语授课，且**本科所有年份都在这所学校就读**才免；转学的情况页面没写", "GRE 有，送分我看不到。你四年美本，但转过学，和条文的字面对不上，要发邮件问 econphd@northwestern.edu"),
+      rec: rec("至少 3 封，最多 5 封"),
+      form: bad("缺 Courses Form", "Courses Form：六门最高阶、已出成绩的经济和数学课（含中级微观、宏观、计量）加主要教材；在读的课不填", "没有文件"),
+    },
+    gaps: ["写 Personal Statement（125–250 词）", "填 Courses Form", "问清语言豁免", "SOP 草稿你还没看过"],
+    note: "提交后不能改。",
+    src: ["https://economics.northwestern.edu/graduate/prospective/admissions.html", "https://www.tgs.northwestern.edu/admission/application-procedures/application-requirements/essays.html"] },
+
+  { id: "cornell", name: "Cornell", prog: "PhD in Economics", ddl: "12/15", ddlFull: "12/15（年份和时间没写）", date: "2026-12-15", fee: "$105",
+    items: {
+      sop: draft("Academic Statement of Purpose，1–2 页，标准字体；**每页顶部写全名和申请项目**", "980 词，估算约 1.7 页，页眉已有"),
+      essay: bad("缺 Personal Statement", "Personal Statement，必交，长度没写；写背景和经历如何影响你读研的决定和准备，以及你如何为 community of belonging 做贡献；和学术陈述互补，不重复", "没有文件"),
+      ws: na("没写"),
+      cv: cv("必交"),
+      tr: tr("非官方即可；读过的每所学校都要，但转学分已经显示在学位成绩单上的，可以只列学校；文件不超过 10MB，不能加密，SSN 要遮住"),
+      test: gre("GRE 必交，家考可以。语言：将获美国学士学位可免，在申请里声明"),
+      rec: rec("3 封"),
+      form: na("没写"),
+    },
+    gaps: ["写 Personal Statement", "SOP 草稿你还没看过"],
+    note: "交费后不能再改。",
+    src: ["https://economics.cornell.edu/prospective-incoming-grad-students", "https://gradschool.cornell.edu/admissions/application-steps/personal-statements/"] },
+
+  { id: "bu", name: "Boston University", prog: "PhD in Economics", ddl: "12/15", ddlFull: "12/15 晚 11:59（波士顿时间）", date: "2026-12-15", fee: "$95",
+    items: {
+      sop: draft("至少 200 词，通常约 750 词或 2 页，最多 5 页；**每页都要有姓名、系名和项目名**；提交后不能替换", "1067 词，约 1.9 页，页眉已有"),
+      essay: na("没有"),
+      ws: na("不要求"),
+      cv: ok("系里说可以交，研究生院的清单写必交；提交后不能替换", CVF),
+      tr: tr("非官方即可，每所学校一份"),
+      test: gre("GRE 必交，不能免。语言：美国学士学位即可，不用另外做什么"),
+      rec: rec("3 封；推荐信和官方成绩可到 12/31；推荐人要用机构邮箱"),
+      form: na("没有"),
+    },
+    gaps: ["SOP 草稿你还没看过"],
+    src: ["https://www.bu.edu/econ/admissions/apply-for-a-phd/", "https://www.bu.edu/cas/admissions/phd-mfa/apply/"] },
+
+  { id: "brown", name: "Brown", prog: "PhD in Economics", ddl: "1/1", ddlFull: "2027/1/1（按东部时间算）", date: "2027-01-01", fee: "$75",
+    items: {
+      sop: warn("不足 2 页", "Personal statement，2–3 页", "1059 词。文件实际是单倍行距，估算约 1.9 页。我之前说它改成了 1.5 倍行距、约 2.4 页，那次改动没有生效"),
+      essay: bad("缺 Supplemental Essay", "Supplemental Essay，不超过 300 词，两题选一：① 你的背景和经历如何让你受益于并贡献于 Brown 的包容性学术社区；② 你打算如何通过研究、教学或服务促进多元和包容", "没有文件"),
+      ws: na("没写"),
+      cv: na("没写", "有 CV，系统里有栏位就交"),
+      tr: tr("非官方即可，要显示姓名和学校"),
+      test: gre("GRE 必交，家考可以。语言：美国大学的学位可免"),
+      rec: rec("3 封，系里不建议多交"),
+      form: na("没写"),
+    },
+    gaps: ["写 Supplemental Essay（300 词以内）", "SOP 改成 1.5 倍行距才到 2 页以上", "SOP 草稿你还没看过"],
+    src: ["https://economics.brown.edu/academics/graduate/faqs", "https://graduateschool.brown.edu/apply/application-faqs"] },
+
+  { id: "jhu", name: "Johns Hopkins", prog: "PhD in Economics", ddl: "1/1", ddlFull: "2027/1/1（时间没写）", date: "2027-01-01", fee: "$75",
+    items: {
+      sop: draft("经济系没写题目和长度", "1071 词，约 1.9 页"),
+      essay: na("没写"),
+      ws: na("没写"),
+      cv: na("打开的页面上没写", "有 CV，系统里有栏位就交"),
+      tr: tr("所有大学阶段的非官方成绩单"),
+      test: gre("GRE 必交。语言：美国学位（全日制两年以上）可免，要在申请里申请豁免；在读的须两个学期内拿到学位"),
+      rec: rec("至少 2 封"),
+      form: bad("缺在读课程清单", "要另外上传一份成绩单上还没有的在读课程清单", "没有文件"),
+    },
+    gaps: ["列一份在读课程清单", "SOP 草稿你还没看过"],
+    src: ["https://econ.jhu.edu/graduate/phd-program/admissions/", "https://krieger.jhu.edu/graduate-admissions/apply/how-to-apply/"] },
+
+  { id: "emory", name: "Emory", prog: "PhD in Economics", ddl: "1/1", ddlFull: "2027/1/1 晚 11:59（东部时间）", date: "2027-01-01", fee: "$75",
+    items: {
+      sop: draft("长度没写；Laney 的默认题目：学术经历、兴趣方向、研究计划、研究经历、准备情况", "1081 词，约 1.9 页"),
+      essay: unk("Statement on Building Collaborative and Respectful Graduate Communities，不超过 500 词；Laney 写“按项目建议或必交”，经济系页面没提", "没有专门的文件；你的 500 词版 diversity statement 可以作底稿", "进系统看"),
+      ws: ok("要求页写系里“也要求”，FAQ 写“鼓励提交”；在 Attach Documents 里上传", WS_ALL),
+      cv: cv("必交"),
+      tr: bad("缺官方版", "每所学校一份注册处出具的成绩单的扫描件；**不收学生系统的打印件**", TR_ONLY_UNOFF),
+      test: gre("2027 秋季 GRE 可选。语言：美国大学毕业的不用提供材料"),
+      rec: rec("3 封，可加第四封"),
+      form: unk("网申里要选一个研究方向、列研究经历", "在系统里填，我看不到", "系统里填"),
+    },
+    gaps: ["线上订四所学校的官方成绩单", "进系统看那篇 500 词的陈述要不要交", "SOP 草稿你还没看过"],
+    note: "提交后不能改。",
+    src: ["https://economics.emory.edu/doctoral/apply-to-phd/application-requirements.html", "https://gs.emory.edu/admissions/requirements.html"] },
+
+  { id: "bc", name: "Boston College", prog: "PhD in Economics", ddl: "1/2", ddlFull: "1/2（时间没写）；成绩等所有材料都要在这之前到", date: "2027-01-02", fee: "$75",
+    items: {
+      sop: draft("1–2 页：准备、动机、目标", "1080 词，估算约 1.9 页"),
+      essay: na("没有"),
+      ws: na("没列"),
+      cv: ok("在申请表里上传简历", CVF),
+      tr: tr("评审阶段非官方即可；高中以后所有学校"),
+      test: warn("豁免要官方成绩单", "GRE 必交，ETS 官方（代码 3083）。语言：在美国全日制读满两学年可免，但要**官方成绩单**显示满 4 个学期", "GRE 有，送分我看不到。你已读满 4 个学期以上，符合；官方成绩单要去线上订"),
+      rec: rec("3 封"),
+      form: na("没有"),
+    },
+    gaps: ["订一份官方成绩单（语言豁免用）", "SOP 草稿你还没看过"],
+    src: ["https://www.bc.edu/bc-web/schools/morrissey/departments/economics/graduate/admissions.html", "https://www.bc.edu/bc-web/schools/mcas/graduate/admission.html"] },
+
+  { id: "gatech", name: "Georgia Tech", prog: "PhD in Economics", ddl: "1/4", ddlFull: "系统写 2027/1/4 晚 11:59（东部时间）；系里写 1/1 优先；FAQ 建议国际生 12/1 前交完", date: "2027-01-04", fee: "$105",
+    items: {
+      sop: warn("题目进系统看", "题目和上限只在申请系统里", "1083 词，约 1.9 页；草稿"),
+      essay: unk("没公开；系统的 Supplemental 部分按项目而定", "—", "进系统看"),
+      ws: na("没写"),
+      cv: ok("在 Employment 部分上传", CVF),
+      tr: bad("缺官方版", "所有读过的大学；可以交官方成绩单的复印件，但**不收 web transcript 和学生系统的成绩单**，交了申请会被搁置", TR_ONLY_UNOFF),
+      test: gre("GRE 必交（代码 5248／4301）。语言：从美国院校拿到学位即满足（在读的情况没写）"),
+      rec: rec("3 封"),
+      form: na("没写"),
+    },
+    gaps: ["线上订四所学校的官方成绩单", "进系统看文书题目和上限", "系里建议国际生 12/1 前交完", "SOP 草稿你还没看过"],
+    note: "提交后不能改。这个项目没有 labor 方向；申不申你还没定。",
+    src: ["https://gradapp.gatech.edu/portal/program-info?cmd=view-program&program=62c4f7df-5c59-69b6-6d3a-627d030ec21d", "https://econ.gatech.edu/phd-economics/faq", "https://grad.gatech.edu/admissions/application-instructions"] },
+
+  { id: "ucr", name: "UC Riverside", prog: "PhD in Economics", ddl: "1/5", ddlFull: "1/5（奖学金和录取；年份没写）", date: "2027-01-05", fee: "$155",
+    items: {
+      sop: warn("要转 PDF；缺两项内容", "Graduate Statement of Purpose，不超过 2000 词，上传 PDF；题目列了六个方面：背景、研究兴趣、与 UCR 的契合、动机、未来目标和社会影响、对学术和 UCR 社区的贡献", "1085 词，只有 .docx；“社会影响”和“对社区的贡献”正文没有专门写；草稿"),
+      essay: na("2026 年起不再要 Personal History Statement"),
+      ws: na("系里没写"),
+      cv: na("没写", "有 CV，系统里有栏位就交"),
+      tr: warn("缺评分说明", "非官方即可；所有大学阶段的学校；要有姓名、日期、成绩、学分和评分说明", TR_NO_LEGEND),
+      test: gre("GRE 必交，家考可以。语言：已得或将得美国院校学位即满足"),
+      rec: rec("3 封，2 封应为学术；不建议多交"),
+      form: na("没写"),
+    },
+    gaps: ["SOP 补“社会影响”和“对社区的贡献”", "SOP 转 PDF", "成绩单配上评分说明", "SOP 草稿你还没看过"],
+    note: "提交后不能改。",
+    src: ["https://economics.ucr.edu/graduate-program/apply/", "https://graduate.ucr.edu/admission-requirements"] },
+
+  { id: "duke", name: "Duke", prog: "PhD in Economics", ddl: "1/6", ddlFull: "2027/1/6 晚 11:59（东部时间）", date: "2027-01-06", fee: "$105",
+    items: {
+      sop: warn("要转 PDF；缺 weaknesses", "1–2 页单倍行距；题目要求写目的、兴趣和计划、**在本领域的强项和弱项**、研究项目、选 Duke 的理由；**只收 PDF**；所有文件上要有全名", "1077 词，约 1.9 页，页眉有姓名；只有 .docx；正文没有写 weaknesses；草稿"),
+      essay: bad("缺 Life Experiences Statement", "Life Experiences Statement，必交，不超过 1 页单倍行距；写塑造你的人生经历，以及你会怎样用它们为 Duke 的学术社区做贡献", "没有文件。你的 500 词版 diversity statement 正好约 1 页，可以作底稿"),
+      ws: ok("建议交（非必须）；每个文件不超过 75 页", WS_ALL, "建议·有"),
+      cv: cv("必交"),
+      tr: tr("非官方即可；拿过学位、读过一学期以上、修过 12 学分以上或上过相关课程的学校都要；每个文件不超过 1.5MB（你的四份都小于这个数）"),
+      test: gre("GRE 必交，家考可以。语言：在英语国家全日制学习两年以上可免；录取前学校不确认豁免"),
+      rec: rec("3 封，不建议多交"),
+      form: na("没写"),
+    },
+    gaps: ["写 Life Experiences Statement（1 页）", "SOP 补 weaknesses", "所有文件转 PDF 并带全名", "SOP 草稿你还没看过"],
+    src: ["https://econ.duke.edu/phd-program/prospective-students/application-instructions", "https://gradschool.duke.edu/admissions/application-instructions"] },
+
+  { id: "uiuc", name: "UIUC", prog: "PhD in Economics", ddl: "1/10？", ddlFull: "官方页面现在没写日期；1/10 只出现在旧页面的缓存里，要进系统或问 econ-phd@illinois.edu", date: "2027-01-10", fee: "$90",
+    items: {
+      sop: warn("上限进系统看", "Academic Statement，上限由项目设在 500–1000 词之间，经济系设的数只在系统里", "987 词；草稿"),
+      essay: bad("缺 2 道必答短答", "4 道短答，各不超过 250 词。Q1（必答）：塑造你学业和职业发展的关键经历、机会或困难；Q2（必答）：和不同背景的同伴共事的例子，以及你学到什么；Q3、Q4 可选", "没有文件"),
+      ws: na("没写"),
+      cv: ok("系里没列；研究生院说多数项目要", CVF),
+      tr: warn("缺评分说明", "非官方的上传一份即可；每所学校都要，PDF 或 Word，带评分说明", TR_NO_LEGEND),
+      test: gre("GRE 必交，不能免（代码 1836）。语言：在英语国家全日制读满两年可免；以后当助教另需口语成绩或面试"),
+      rec: rec("3 封"),
+      form: na("没写"),
+    },
+    gaps: ["写两道必答短答（各 250 词以内）", "确认截止日期", "进系统看 SOP 上限", "成绩单配上评分说明", "SOP 草稿你还没看过"],
+    note: "截止时没交费，申请会退回未提交状态。",
+    src: ["https://economics.illinois.edu/admissions/phd-admissions/phd-application", "https://grad.illinois.edu/admissions/application-instructions/completing-your-graduate-application"] },
+
+  { id: "pitt", name: "Pittsburgh", prog: "PhD in Economics", ddl: "1/15", ddlFull: "2027/1/15（时间没写）；成绩单和推荐信也要在这之前到", date: "2027-01-15", fee: "$75",
+    items: {
+      sop: draft("不是普通 SOP：Career statement，不超过 500 词，回答五个问题（兴趣、职业目标、个人特质和经历、克服的困难、研究经历）", "`Career_Statement_Pittsburgh.docx`，385 词"),
+      essay: na("没有"),
+      ws: ok("可选，但强烈建议交", WS_ALL, "建议·有"),
+      cv: ok("旧版说明里写在 Supporting Information 上传", CVF),
+      tr: tr("非官方即可；读过的所有本科项目都要"),
+      test: gre("GRE 本轮可选。语言：已得或将得美国学位可免"),
+      rec: rec("3 封，要用信头纸并签名"),
+      form: unk("GradCAS 的 Program Materials 问题；Coursework Entry 留空", "在系统里填，我看不到", "系统里填"),
+    },
+    gaps: ["Career statement 草稿你还没看过"],
+    note: "系里的说明 PDF 列的是另一版六个问题，以系统为准。",
+    src: ["https://www.econ.pitt.edu/doctoral/admissions", "https://www.econ.pitt.edu/phd-application-faq"] },
+
+  { id: "rutgers", name: "Rutgers", prog: "PhD in Economics", ddl: "1/15", ddlFull: "2027/1/15（时间没写）", date: "2027-01-15", fee: "$70",
+    items: {
+      sop: draft("personal statement，没有公布题目和长度", "1081 词，约 1.9 页"),
+      essay: na("没有；可以附一段说明数学课内容的补充（可选）"),
+      ws: ok("可选", WS_ALL, "可选·有"),
+      cv: cv("必交"),
+      tr: tr("申请阶段非官方即可；高中以后所有学校"),
+      test: gre("GRE 必交（FAQ 说申请阶段可以用非官方成绩）。语言：国际生本科有三年以上英语授课即可免"),
+      rec: rec("至少 3 封"),
+      form: na("没有"),
+    },
+    gaps: ["SOP 草稿你还没看过"],
+    src: ["https://economics.rutgers.edu/academics/graduate/program/prospective-students/graduate-faqs", "https://grad.admissions.rutgers.edu/GraduateProgram/Detail.aspx?id=a501U0000004gNmQAI"] },
+
+  { id: "cuny", name: "CUNY Graduate Center", prog: "PhD in Economics", ddl: "2/1", ddlFull: "2027/2/1 晚 11:59（东部时间）", date: "2027-02-01", fee: "$75 + 2.65%",
+    items: {
+      sop: draft("Applicant Statement，建议约 1000 词；上传，每个文件不超过 4MB", "988 词"),
+      essay: na("Personal Statement 可选，不超过 250 词", "你的 250 词版 diversity statement 可以作底稿", "可选"),
+      ws: warn("要加生日", "可选；文件上要写全名和出生日期", "文件有；上面有姓名，没有出生日期"),
+      cv: ok("可选", CVF, "可选·有"),
+      tr: tr("非官方上传；读过的每所学校都要，转过学分的学校也要"),
+      test: gre("GRE 必交，没有豁免；上传考生成绩单；截止前至少两周考完。语言：美国的学士学位可免"),
+      rec: rec("至少 2 封，最好 3–4 封；也要在截止日前到"),
+      form: na("没有"),
+    },
+    gaps: ["要交写作样本的话，加上出生日期", "SOP 草稿你还没看过"],
+    src: ["https://www.gc.cuny.edu/economics/admissions-and-aid", "https://www.gc.cuny.edu/admissions-aid/how-apply/frequently-asked-questions"] },
+];
+
+// 其他文书：[学校, 截止, 文书和长度, 要写什么, 现在的情况, 状态, 标签, 是否虚线]
+const ESSAYS = [
+  ["Carnegie Mellon（Heinz）", "12/1", "**Research Proposal**，必交，不超过 1200 词", "和 SOP 是两份。写一个你想做的研究项目：想法是什么、为什么重要（对谁重要）、初步打算怎么做、要回答的主要问题、需要哪类证据来支持结论", "没有文件", "bad", "缺"],
+  ["Northwestern", "12/15", "**Personal Statement**，必交，125–250 词", "关键经历、服务或领导经历，或申请里别处没写到的内容；不能和 SOP 重复", "没有文件。你的 250 词版个人陈述可以作底稿", "bad", "缺"],
+  ["Cornell", "12/15", "**Personal Statement**，必交，长度没写", "你的背景和经历如何影响你读研的决定和准备；你会怎样为 community of belonging 做贡献；和学术陈述互补，不重复", "没有文件。你的 500 或 750 词版可以作底稿", "bad", "缺"],
+  ["Brown", "1/1", "**Supplemental Essay**，要上传，不超过 300 词", "两题选一：① 你的背景、知识和经历如何让你受益于并贡献于 Brown 的包容性学术社区；② 你打算如何通过研究、教学或服务促进多元和包容", "没有文件。你的 250 词版可以作底稿", "bad", "缺"],
+  ["Duke", "1/6", "**Life Experiences Statement**，必交，不超过 1 页单倍行距", "塑造你的人生经历，以及你会怎样用它们为 Duke 的学术社区做贡献", "没有文件。你的 500 词版正好约 1 页，可以作底稿", "bad", "缺"],
+  ["UIUC", "1/10？", "**两道必答短答**，各不超过 250 词", "Q1：塑造你学业和职业发展的关键经历、机会或困难（含经济或机会上的障碍）。Q2：和不同观点、能力或经历的同伴共事的一个例子，以及你学到了什么", "没有文件。Q1 可以用 250 词版作底稿，Q2 要新写", "bad", "缺 2 篇"],
+  ["Emory", "1/1", "Statement on Building Collaborative and Respectful Graduate Communities，不超过 500 词", "Laney 写“按项目建议或必交”，经济系页面没提，Laney 自己那页的标题是 Optional Diversity Statement", "没有专门的文件；500 词版可以作底稿", "unk", "进系统看"],
+  ["Georgia Tech", "1/4", "系统里 Supplemental 部分的题目", "没有公开，按项目而定", "—", "unk", "进系统看"],
+  ["UC Berkeley", "12/1", "Personal History Statement，必交，不超过 3 页双倍行距", "背景和人生经历如何影响你现在读研的决定；不能和 SOP 重复", "`个人陈述_待确认/PS_UC_Berkeley.docx`，765 词，3 页", "ok", "满足·待确认", true],
+  ["Princeton", "12/1", "Personal Statement，必交，不超过 250 词", "一段影响你读研决定的个人经历，以及它如何丰富 Princeton 的学术社区", "`PS_Princeton.docx`，249 词", "ok", "满足·待确认", true],
+  ["UCLA", "12/1", "Personal Statement，必交，500 词", "官网没写题目；用于 Cota-Robles 奖学金评审", "`PS_UCLA.docx`，497 词", "ok", "满足·待确认", true],
+  ["Michigan", "12/1", "Personal Statement，必交，500 词，要页眉", "不能和 Academic Statement of Purpose 重复", "`PS_Michigan.docx`，正文 497 词，页眉已有", "ok", "满足·待确认", true],
+  ["Maryland", "12/1", "Personal Experience Prompts，建议 100–300 词", "社区服务、领导或指导经历、克服障碍，至少一个方面的个人经历如何帮助你在项目里成功", "`PS_Maryland.docx`，248 词", "ok", "满足·待确认", true],
+  ["UC Irvine", "12/1", "Personal history statement，必交，长度没写", "个人背景如何影响你读经济学 PhD 的决定；可以写遇到的困难和怎么克服", "`PS_UC_Irvine.docx`，765 词", "ok", "满足·待确认", true],
+  ["UC Santa Barbara", "12/2", "Personal History Statement，必交，至少 250 词，要页眉", "个人背景、成就，经济上的困难，能给研究生群体带来多样性的经历；不能和 SOP 重复", "`PS_UC_Santa_Barbara.docx`，765 词，页眉已有", "ok", "满足·待确认", true],
+  ["Columbia", "12/3", "Personal statement，必交，500–1000 词", "GSAS 页面只给了长度", "`PS_Columbia.docx`，765 词", "ok", "满足·待确认", true],
+  ["Carnegie Mellon（Heinz）", "12/1", "Optional Statement，可选，不超过 250 词", "解释特殊情况，比如经历里的空档", "没有文件；没有要解释的可以不交", "na", "可选"],
+  ["CU Boulder", "12/1", "Diversity statement，可选，长度没写", "页面没给题目", "可以用你现成的三个长度的版本", "na", "可选"],
+  ["UIUC", "1/10？", "Q3、Q4，可选，各不超过 250 词", "Q3：成绩不能反映能力时的说明，或解释空档。Q4：其他想让委员会知道的事", "没有文件；可以不答", "na", "可选"],
+  ["CUNY", "2/1", "Personal Statement，可选，不超过 250 词", "塑造你成为学者、并让你能为 GC 社区做贡献的背景和经历", "250 词版可以作底稿", "na", "可选"],
+];
+const NO_ESSAY = "官方页面没有列其他文书的 12 所：Yale、Harris、UC San Diego、UNC、USC、Penn、Boston University、Johns Hopkins、Boston College、UC Riverside、Pittsburgh、Rutgers。";
+
+const BLIND = [
+  "**网申系统里的情况**：账号建没建、填到哪一步、交没交费、各栏位实际的字数上限和计数方式。",
+  "**GRE 送分**：哪些学校已经送了官方成绩。12/1 截止的学校里，Berkeley 写明官方成绩要在截止日前到。",
+  "**官方成绩单**：要去线上订（你 11/24 说的），订没订、到没到我看不到。12/1–12/2 截止的 Michigan、CMU、USC、UCSB 最急。",
+  "**first-generation 的口径**：250 词版个人陈述开头写 first-generation college student，信息表里“是否是家里第一个读本科的人”填的是“不是”。各校表单里问到这一项时，回答要和文书对得上。",
+  "**排版**：页数都是估算。Berkeley、USC（3 页）和 UNC（表格）要在你自己的 Word 里看一眼。",
+];
+const METHOD = [
+  "**SOP 的要求**来自 2026-11-21／22 查的官方页面，以及你登录系统后告诉我的三处（Columbia、UCLA、UC Irvine）。",
+  "**SOP 以外的要求**是 2026-11-24 让四个后台查询去读各校经济系和研究生院的官方页面得到的。只记页面写明的内容，页面没写的标“没写”，两处说法不一的照录。查询返回的结果我没有逐条再点开核对，卡片底部有来源链接。",
+  "**现在的情况**是 2026-11-24 量的：词数按空格计；页数按 Times New Roman 12 号字、1 英寸页边距估算，不是 Word 的实际排版。",
+  "**“满足·草稿”**指文件对得上要求，但内容你还没逐份看过（后来的 15 所）。**“满足·待确认”**指文件在 `个人陈述_待确认/` 里，你还没确认。",
+  "这张表不带打勾功能。旧的 `网申材料/各校SOP格式要求.html` 里的词数和文件路径已经过时，我没有改它。",
+];
+
+// ---- 渲染 ----
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const fmt = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/`(.+?)`/g, "<code>$1</code>");
+const chip = (st, text, dashed) => st === "na" ? `<span class="na">${esc(text || "—")}</span>` : `<span class="chip ${st}${dashed ? " draft" : ""}">${esc(text || LABEL[st])}</span>`;
+const $ = id => document.getElementById(id);
+const days = d => Math.round((new Date(d + "T00:00:00") - new Date(TODAY + "T00:00:00")) / 86400000);
+
+$("intro").innerHTML = fmt(INTRO);
+$("general").tBodies[0].innerHTML = GENERAL.map(r => `<tr><td>${fmt(r[0])}</td><td>${fmt(r[1])}</td><td>${chip(r[2], r[4])}</td><td>${fmt(r[3])}</td></tr>`).join("");
+
+const sorted = [...SCHOOLS].sort((a, b) => a.date.localeCompare(b.date) || a.name.localeCompare(b.name));
+const count = st => sorted.reduce((n, s) => n + COLS.filter(([k]) => s.items[k] && s.items[k].st === st).length, 0);
+const soon = sorted.filter(s => s.date <= "2026-12-03");
+$("tiles").innerHTML = [
+  [sorted.length, "所学校"],
+  [soon.length, "所在 12 月 3 日前截止"],
+  [count("bad"), "项缺文件"],
+  [count("warn"), "项要处理"],
+  [count("ok"), "项已满足"],
+  [count("unk"), "项我看不到"],
+].map(([n, t]) => `<div class="tile"><b>${n}</b><span>${t}</span></div>`).join("");
+
+function matrix() {
+  let html = `<thead><tr><th>学校</th><th>截止</th>${COLS.map(c => `<th>${c[1]}</th>`).join("")}<th style="text-align:left">还差什么</th></tr></thead><tbody>`;
+  let last = "";
+  for (const s of sorted) {
+    const grp = s.date <= "2026-12-03" ? "12 月 1–3 日截止" : s.date <= "2026-12-15" ? "12 月 8–15 日截止" : "1 月以后截止";
+    if (grp !== last) { html += `<tr class="sep"><td colspan="${COLS.length + 3}">${grp}</td></tr>`; last = grp; }
+    html += `<tr><td><a href="#${s.id}">${esc(s.name)}</a></td><td>${esc(s.ddl)}</td>` +
+      COLS.map(([k]) => `<td>${s.items[k] ? chip(s.items[k].st, s.items[k].tag, s.items[k].draft) : chip("na")}</td>`).join("") +
+      `<td class="gap">${s.gaps.length ? s.gaps.map(fmt).join("；") : "没有发现缺口"}</td></tr>`;
+  }
+  $("matrix").innerHTML = html + "</tbody>";
+}
+
+function cards() {
+  const onlyGap = $("onlyGap").checked, onlySoon = $("onlySoon").checked;
+  $("cards").innerHTML = sorted.filter(s => !onlySoon || s.date <= "2026-12-03").map(s => {
+    const rows = COLS.filter(([k]) => s.items[k]).filter(([k]) => !onlyGap || ["bad", "warn"].includes(s.items[k].st));
+    if (onlyGap && !rows.length) return "";
+    const d = days(s.date);
+    return `<section class="card" id="${s.id}">
+      <div class="head"><h3>${esc(s.name)}</h3><span class="ddl">${esc(s.prog)} · 截止 ${esc(s.ddlFull || s.ddl)} · 申请费 ${esc(s.fee)}</span>
+        <span class="days chip ${d <= 9 ? "bad" : d <= 21 ? "warn" : "unk"}">还有 ${d} 天</span></div>
+      <div class="wrap"><table><thead><tr><th>材料</th><th>学校的要求</th><th>现在的情况</th><th>状态</th></tr></thead><tbody>
+      ${rows.map(([k, label]) => { const it = s.items[k]; return `<tr><td>${label}</td><td>${fmt(it.req)}</td><td>${fmt(it.now)}</td><td>${chip(it.st, it.tag, it.draft)}</td></tr>`; }).join("")}
+      </tbody></table></div>
+      ${s.gaps.length ? `<div class="gaps"><strong>还差：</strong><ul>${s.gaps.map(g => `<li>${fmt(g)}</li>`).join("")}</ul></div>` : ""}
+      ${s.note ? `<p class="src">${fmt(s.note)}</p>` : ""}
+      <p class="src">来源：${s.src.map(u => `<a href="${u}" target="_blank" rel="noopener">${esc(u)}</a>`).join(" ； ")}</p>
+    </section>`;
+  }).join("");
+}
+document.addEventListener("change", e => { if (["onlyGap", "onlySoon"].includes(e.target.id)) cards(); });
+$("essays").tBodies[0].innerHTML = ESSAYS.map(r => `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${fmt(r[2])}</td><td>${fmt(r[3])}</td><td>${fmt(r[4])}</td><td>${chip(r[5], r[6], r[7])}</td></tr>`).join("");
+$("noessay").textContent = NO_ESSAY;
+$("blind").innerHTML = BLIND.map(t => `<li>${fmt(t)}</li>`).join("");
+$("method").innerHTML = METHOD.map(t => `<li>${fmt(t)}</li>`).join("");
+matrix(); cards();
+</script>
+</body>
+</html>
