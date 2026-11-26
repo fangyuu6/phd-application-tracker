@@ -108,7 +108,7 @@
   <div class="wrap"><table id="matrix"></table></div>
 
   <h2>三、其他文书：每一篇是什么、缺不缺</h2>
-  <p class="muted">“其他文书”指 SOP 以外要写的东西。个人陈述类的都可以用你现成的 250／500／750 词三个版本；还没有文字的只有 CMU 的 Research Proposal 和 UIUC 的 Q2。</p>
+  <p class="muted">“其他文书”指 SOP 以外要写的东西。个人陈述类的都可以用你现成的 250／500／750 词三个版本；还没有文字的只有 UIUC 的 Q2；CMU 的 Research Proposal 已在 11/26 定稿。</p>
   <div class="wrap"><table id="essays"><thead><tr><th>学校</th><th>截止</th><th>文书和长度</th><th>要写什么</th><th>现在的情况</th><th>状态</th></tr></thead><tbody></tbody></table></div>
   <p class="muted" id="noessay"></p>
 
@@ -135,7 +135,7 @@ const LABEL = { ok: "满足", warn: "要处理", bad: "缺", unk: "看不到", n
 
 // SOP 完成度：你 2026-11-24 说的
 const PROGRESS = [["SOP：之前的 15 所（`sop/1_之前的15所/`）", 99], ["SOP：后来的 15 所（`sop/2_后来的15所/`）", 70]];
-const INTRO = "整理于 2026-11-24，2026-11-25 更新了 SOP 的词数和 CMU 的 Research Proposal。左边是各校官方页面写明的要求，右边是你文件夹里现在的文件，量过之后对照。“满足”只说明文件对得上记录到的要求；网申系统里的栏位和送分，我看不到。你 11/24 确认过的几点已写进表里：SOP 之前的 15 所完成 99%，后来的 15 所完成 70%；CMU 走 Heinz；推荐信已经满足；GRE 有，语言成绩没有，本科四年都在美国；官方成绩单要去线上订；Georgia Tech 从表里删去。";
+const INTRO = "整理于 2026-11-24，2026-11-25 更新了 SOP 的词数，2026-11-26 CMU 的 Research Proposal 定稿。左边是各校官方页面写明的要求，右边是你文件夹里现在的文件，量过之后对照。“满足”只说明文件对得上记录到的要求；网申系统里的栏位和送分，我看不到。你 11/24 确认过的几点已写进表里：SOP 之前的 15 所完成 99%，后来的 15 所完成 70%；CMU 走 Heinz；推荐信已经满足；GRE 有，语言成绩没有，本科四年都在美国；官方成绩单要去线上订；Georgia Tech 从表里删去。";
 
 // 常用的“现在的情况”
 const TR_HAVE = "USC、BU、Rutgers、UIUC NetMath 四份非官方成绩单都在";
@@ -247,7 +247,7 @@ const SCHOOLS = [
   { id: "cmu", name: "Carnegie Mellon", prog: "Economics and Public Policy，走 Heinz", ddl: "12/1", ddlFull: "12/1（Heinz；时间没写）", date: "2026-12-01", fee: "免费",
     items: {
       sop: ok("不超过 1200 词。题目：学术和职业背景、职业目标、PhD 如何帮你实现目标；要写明 (a) 想研究的政策领域和原因，(b) 为什么 Heinz 适合你", "1073 词。结尾段写了联合项目和三位 Heinz 教授，职业目标只有最后一句"),
-      essay: warn("草稿待确认", "**Research Proposal，必交，不超过 1200 词，和 SOP 是两份**：写一个你想做的研究项目，包括想法、为什么重要（对谁重要）、打算怎么做、要回答的主要问题、需要哪类证据。Optional Statement 可选，不超过 250 词，用来解释特殊情况", "有草稿：`SOP_待review/CMU_Research_Proposal_草稿.docx`，616 词，按导师的建议写成 writing sample 的概括加延伸；还没有定稿"),
+      essay: ok("**Research Proposal，必交，不超过 1200 词，和 SOP 是两份**：写一个你想做的研究项目，包括想法、为什么重要（对谁重要）、打算怎么做、要回答的主要问题、需要哪类证据。Optional Statement 可选，不超过 250 词，用来解释特殊情况", "已定稿（你 11/26 确认）：`sop/1_之前的15所/Research_Proposal_Carnegie_Mellon.docx`，627 词，估算一页，按导师的建议写成 writing sample 的概括加延伸；只有 .docx，页数没在 Word 里看过", "Research Proposal"),
       ws: na("Heinz 页面没写"),
       cv: cv("必交，1–2 页；要列出所有兼职和全职工作、起止日期和职责说明"),
       tr: warn("USC 要订官方版", "**授学士学位的学校的官方成绩单要在评审前到**；其他学校上传非官方版", "BU、Rutgers、UIUC 的非官方版在；USC 的官方版要去线上订，收件方填 Heinz"),
@@ -255,7 +255,7 @@ const SCHOOLS = [
       rec: rec("3 封"),
       form: na("没写"),
     },
-    gaps: ["确认 Research Proposal 草稿（616 词）", "线上订 USC 官方成绩单，送到 Heinz"],
+    gaps: ["Research Proposal 转 PDF，在 Word 里确认是一页", "线上订 USC 官方成绩单，送到 Heinz"],
     note: "只能向 Heinz 或 Tepper 其中一边交一份申请。",
     src: ["https://www.heinz.cmu.edu/programs/phd-programs/admissions-how-to-apply", "https://www.cmu.edu/tepper/programs/phd/admissions/index.html"] },
 
@@ -597,7 +597,7 @@ const SCHOOLS = [
 
 // 其他文书：[学校, 截止, 文书和长度, 要写什么, 现在的情况, 状态, 标签, 是否虚线]
 const ESSAYS = [
-  ["Carnegie Mellon（Heinz）", "12/1", "**Research Proposal**，必交，不超过 1200 词", "和 SOP 是两份。写一个你想做的研究项目：想法是什么、为什么重要（对谁重要）、初步打算怎么做、要回答的主要问题、需要哪类证据来支持结论", "有草稿，616 词，在 `SOP_待review/`，还没有定稿", "warn", "草稿待确认"],
+  ["Carnegie Mellon（Heinz）", "12/1", "**Research Proposal**，必交，不超过 1200 词", "和 SOP 是两份。写一个你想做的研究项目：想法是什么、为什么重要（对谁重要）、初步打算怎么做、要回答的主要问题、需要哪类证据来支持结论", "已定稿（你 11/26 确认），627 词，估算一页，在 `sop/1_之前的15所/`；只有 .docx", "ok", "Research Proposal"],
   ["Northwestern", "12/15", "Personal Statement，必交，125–250 词", "关键经历、服务或领导经历，或申请里别处没写到的内容；不能和 SOP 重复", "用你的 250 词版（248 词），内容对得上；还没另存成 Northwestern 的文件", "ok", "有·250 词版"],
   ["Cornell", "12/15", "Personal Statement，必交，长度没写", "你的背景和经历如何影响你读研的决定和准备；你会怎样为 community of belonging 做贡献；和学术陈述互补，不重复", "用你的 500 词版或 750 词版，内容对得上；还没另存成 Cornell 的文件", "ok", "有·500 词版"],
   ["Brown", "1/1", "Supplemental Essay，要上传，不超过 300 词", "两题选一：① 你的背景、知识和经历如何让你受益于并贡献于 Brown 的包容性学术社区；② 你打算如何通过研究、教学或服务促进多元和包容", "用你的 250 词版（248 词），对应第 ① 题；文中没有提到 Brown", "ok", "有·250 词版"],
