@@ -129,13 +129,13 @@
 <script>
 // ---- 数据：改内容只改这里 ----
 // 状态 st：ok 满足 / warn 要处理 / bad 缺 / unk 看不到 / na 不需要
-const TODAY = "2026-11-24";
+const TODAY = "2026-11-25";
 const COLS = [["sop","SOP"],["essay","其他文书"],["ws","写作样本"],["cv","CV"],["tr","成绩单"],["test","GRE／语言"],["rec","推荐信"],["form","表格等"]];
 const LABEL = { ok: "满足", warn: "要处理", bad: "缺", unk: "看不到", na: "—" };
 
 // SOP 完成度：你 2026-11-24 说的
 const PROGRESS = [["SOP：之前的 15 所（`sop/1_之前的15所/`）", 99], ["SOP：后来的 15 所（`sop/2_后来的15所/`）", 70]];
-const INTRO = "整理于 2026-11-24。左边是各校官方页面写明的要求，右边是你文件夹里现在的文件，量过之后对照。“满足”只说明文件对得上记录到的要求；网申系统里的栏位和送分，我看不到。你 11/24 确认过的几点已写进表里：SOP 之前的 15 所完成 99%，后来的 15 所完成 70%；CMU 走 Heinz；推荐信已经满足；GRE 有，语言成绩没有，本科四年都在美国；官方成绩单要去线上订；Georgia Tech 从表里删去。";
+const INTRO = "整理于 2026-11-24，2026-11-25 更新了 SOP 的词数和 CMU 的 Research Proposal。左边是各校官方页面写明的要求，右边是你文件夹里现在的文件，量过之后对照。“满足”只说明文件对得上记录到的要求；网申系统里的栏位和送分，我看不到。你 11/24 确认过的几点已写进表里：SOP 之前的 15 所完成 99%，后来的 15 所完成 70%；CMU 走 Heinz；推荐信已经满足；GRE 有，语言成绩没有，本科四年都在美国；官方成绩单要去线上订；Georgia Tech 从表里删去。";
 
 // 常用的“现在的情况”
 const TR_HAVE = "USC、BU、Rutgers、UIUC NetMath 四份非官方成绩单都在";
@@ -158,7 +158,7 @@ const cv = req => ok(req, CVF);
 const tr = req => ok(req, TR_HAVE);
 
 const GENERAL = [
-  ["SOP", "`sop/1_之前的15所/` 和 `sop/2_后来的15所/` 各 15 份 .docx。另一个会话今天 15:02 改过其中 27 份（gap 句改回冒号，Harris 的 fit 段第一句换了），下面的词数是改完之后量的", "warn", "**你 11/24 说：之前的 15 所完成 99%，后来的 15 所完成 70%。** 表里后来的 15 所标“满足·草稿”。**这些文件都没有 PDF**，Maryland、Duke、UCSB、UC Riverside 写明要 PDF", "看各校"],
+  ["SOP", "`sop/1_之前的15所/` 和 `sop/2_后来的15所/` 分别是 15 份和 14 份 .docx。11/25 按你的批注改了各校的 fit 段和几处句子，下面的词数是改完之后量的", "warn", "**你 11/24 说：之前的 15 所完成 99%，后来的 15 所完成 70%。** 表里后来的 15 所标“满足·草稿”。**这些文件都没有 PDF**，Maryland、Duke、UCSB、UC Riverside 写明要 PDF", "看各校"],
   ["其他文书", "你的个人陈述有三个长度（250／500／750 词，在 `网申材料/`）；其中 8 所学校另存了分校版，在 `个人陈述_待确认/`，和原稿只差几个字", "warn", "要个人陈述类文书的学校，现成的三个版本都能对上长度：Northwestern 和 Brown 用 250 词版，Cornell 和 Duke 用 500 词版，UIUC 的 Q1 用 250 词版。**真正还没有文字的只有两篇**：CMU Heinz 的 Research Proposal（1200 词以内）和 UIUC 的短答 Q2。Emory 那篇要不要交得进系统看", "缺 2 篇"],
   ["CV", CVF + "，11/24 更新", "ok", "三所有特殊要求：UCSB 要写每周小时数，Michigan 要加页眉，Northwestern 要求高中以后不留空档"],
   ["写作样本", "完整版 52 页、25 页版，都是双倍行距，独立署名", "ok", "Princeton（最多 25 页）和 Columbia（30 页双倍行距）用 25 页版。UCLA、Michigan、UCSB 写明不要交。CUNY 要求文件上写出生日期"],
@@ -173,7 +173,7 @@ const GENERAL = [
 const SCHOOLS = [
   { id: "berkeley", name: "UC Berkeley", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1 晚 8:59（太平洋时间）", date: "2026-12-01", fee: "$155 + 4.22%",
     items: {
-      sop: warn("Word 里确认 3 页", "不超过 3 页，双倍行距", "867 词，双倍行距。估算 68 行，按每页 23 行正好排满 3 页，没在 Word 里验证"),
+      sop: warn("Word 里确认 3 页", "不超过 3 页，双倍行距", "880 词，双倍行距。11/25 改 fit 段后最后一段多了一行，估算离 3 页上限只剩一行，没在 Word 里验证"),
       essay: pend("Personal History Statement，必交，不超过 3 页双倍行距，不能和 SOP 重复", "`" + PSD + "PS_UC_Berkeley.docx`，765 词，双倍行距，PDF 是 3 页"),
       ws: ok("可选，只收 PDF，页数没写", WS_ALL, "可选·有"),
       cv: ok("可选", CVF, "可选·有"),
@@ -187,7 +187,7 @@ const SCHOOLS = [
 
   { id: "yale", name: "Yale", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1 晚 11:59（东部时间）", date: "2026-12-01", fee: "$105",
     items: {
-      sop: ok("500–1000 词；上传，不超过 16MB", "997 词，单倍行距约 1.7 页"),
+      sop: ok("500–1000 词；上传，不超过 16MB", "998 词，单倍行距约 1.7 页"),
       essay: na("页面只列了 statement of academic purpose"),
       ws: unk("经济系没写；研究生院说项目要求的话，系统会拦住提交", "文件有，要不要交进系统才知道", "进系统看"),
       cv: cv("必交"),
@@ -202,7 +202,7 @@ const SCHOOLS = [
 
   { id: "princeton", name: "Princeton", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1 晚 11:59（东部时间）", date: "2026-12-01", fee: "$90",
     items: {
-      sop: ok("不超过 1000 词，格式不限；**提交即定稿**", "991 词，单倍行距约 1.7 页"),
+      sop: ok("不超过 1000 词，格式不限；**提交即定稿**", "997 词，单倍行距约 1.7 页"),
       essay: pend("Personal Statement，必交，不超过 250 词", "`" + PSD + "PS_Princeton.docx`，249 词"),
       ws: ok("必交，最多 25 页（不含参考文献和标题页）", "`fangyu_writing_sample25.pdf`，连参考文献 25 页"),
       cv: cv("必交"),
@@ -217,7 +217,7 @@ const SCHOOLS = [
 
   { id: "ucla", name: "UCLA", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1 晚 11:59（太平洋时间）", date: "2026-12-01", fee: "$155",
     items: {
-      sop: ok("500 词（你 11/21 告知，官网没写）", "499 词"),
+      sop: ok("500 词（你 11/21 告知，官网没写）", "500 词，正好到上限"),
       essay: pend("Personal Statement，必交，500 词（约 1 页单倍行距，1 英寸页边距，12 号字）；用于 Cota-Robles 奖学金评审", "`" + PSD + "PS_UCLA.docx`，497 词，约 1 页"),
       ws: na("不收，交了也不看", "—", "不收"),
       cv: cv("必交"),
@@ -232,7 +232,7 @@ const SCHOOLS = [
 
   { id: "michigan", name: "Michigan", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1 晚 11:59（东部时间）", date: "2026-12-01", fee: "$90",
     items: {
-      sop: ok("官网没有上限（你自己按 1000 词封顶）；页眉写文档类型、姓名、项目、U-M ID（如已有）；页边距至少 1 英寸", "992 词，页眉已有，没有 U-M ID"),
+      sop: ok("官网没有上限（你自己按 1000 词封顶）；页眉写文档类型、姓名、项目、U-M ID（如已有）；页边距至少 1 英寸", "993 词，页眉已有，没有 U-M ID"),
       essay: pend("Personal Statement，必交，500 词，页眉同上，不能和 SOP 重复", "`" + PSD + "PS_Michigan.docx`，正文 497 词，页眉已有；连页眉一起数是 504 词"),
       ws: na("不要交", "—", "不收"),
       cv: warn("缺页眉", "必交，页眉同样要写文档类型、姓名、项目", "CV 顶部只有姓名，没有“Curriculum Vitae”和项目名称"),
@@ -246,8 +246,8 @@ const SCHOOLS = [
 
   { id: "cmu", name: "Carnegie Mellon", prog: "Economics and Public Policy，走 Heinz", ddl: "12/1", ddlFull: "12/1（Heinz；时间没写）", date: "2026-12-01", fee: "免费",
     items: {
-      sop: ok("不超过 1200 词。题目：学术和职业背景、职业目标、PhD 如何帮你实现目标；要写明 (a) 想研究的政策领域和原因，(b) 为什么 Heinz 适合你", "1085 词。结尾段写了联合项目和三位 Heinz 教授，职业目标只有最后一句"),
-      essay: bad("缺 Research Proposal", "**Research Proposal，必交，不超过 1200 词，和 SOP 是两份**：写一个你想做的研究项目，包括想法、为什么重要（对谁重要）、打算怎么做、要回答的主要问题、需要哪类证据。Optional Statement 可选，不超过 250 词，用来解释特殊情况", "没有 Research Proposal 的文件"),
+      sop: ok("不超过 1200 词。题目：学术和职业背景、职业目标、PhD 如何帮你实现目标；要写明 (a) 想研究的政策领域和原因，(b) 为什么 Heinz 适合你", "1073 词。结尾段写了联合项目和三位 Heinz 教授，职业目标只有最后一句"),
+      essay: warn("草稿待确认", "**Research Proposal，必交，不超过 1200 词，和 SOP 是两份**：写一个你想做的研究项目，包括想法、为什么重要（对谁重要）、打算怎么做、要回答的主要问题、需要哪类证据。Optional Statement 可选，不超过 250 词，用来解释特殊情况", "有草稿：`SOP_待review/CMU_Research_Proposal_草稿.docx`，616 词，按导师的建议写成 writing sample 的概括加延伸；还没有定稿"),
       ws: na("Heinz 页面没写"),
       cv: cv("必交，1–2 页；要列出所有兼职和全职工作、起止日期和职责说明"),
       tr: warn("USC 要订官方版", "**授学士学位的学校的官方成绩单要在评审前到**；其他学校上传非官方版", "BU、Rutgers、UIUC 的非官方版在；USC 的官方版要去线上订，收件方填 Heinz"),
@@ -255,13 +255,13 @@ const SCHOOLS = [
       rec: rec("3 封"),
       form: na("没写"),
     },
-    gaps: ["写 Research Proposal（1200 词以内）", "线上订 USC 官方成绩单，送到 Heinz"],
+    gaps: ["确认 Research Proposal 草稿（616 词）", "线上订 USC 官方成绩单，送到 Heinz"],
     note: "只能向 Heinz 或 Tepper 其中一边交一份申请。",
     src: ["https://www.heinz.cmu.edu/programs/phd-programs/admissions-how-to-apply", "https://www.cmu.edu/tepper/programs/phd/admissions/index.html"] },
 
   { id: "maryland", name: "Maryland", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1（时间没写）", date: "2026-12-01", fee: "$90",
     items: {
-      sop: warn("要转 PDF", "长度没写；**只收 PDF，不超过 4MB**", "1081 词，约 1.9 页，只有 .docx"),
+      sop: warn("要转 PDF", "长度没写；**只收 PDF，不超过 4MB**", "1082 词，约 1.9 页，只有 .docx"),
       essay: pend("Personal Experience Prompts，建议 100–300 词（必答还是选答，页面没写）", "`" + PSD + "PS_Maryland.docx`，248 词"),
       ws: ok("可选，最多 3 篇", WS_ALL, "可选·有"),
       cv: cv("必交"),
@@ -276,7 +276,7 @@ const SCHOOLS = [
 
   { id: "unc", name: "UNC Chapel Hill", prog: "PhD in Economics", ddl: "12/1 建议", ddlFull: "研究生院建议国际生 12/1；奖学金建议 12/15；最终 2027/1/12 晚 11:59（东部时间）", date: "2026-12-01", fee: "$95",
     items: {
-      sop: warn("Word 里看页数", "写在系里的 SOP 表格上；1–2 页单倍行距，必要时可加一页；Word 或 PDF；faculty interest 那页留空", "已用表格，正文 1068 词。估算连表格说明约 2.5 页，没在 Word 里看过"),
+      sop: warn("Word 里看页数", "写在系里的 SOP 表格上；1–2 页单倍行距，必要时可加一页；Word 或 PDF；faculty interest 那页留空", "已用表格，正文 1069 词。估算连表格说明约 2.5 页，没在 Word 里看过"),
       essay: na("没有；系统里有 community standards 问题"),
       ws: na("没写"),
       cv: cv("必交"),
@@ -291,7 +291,7 @@ const SCHOOLS = [
 
   { id: "usc", name: "USC", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1 晚 8:59（太平洋时间），没有例外", date: "2026-12-01", fee: "$120",
     items: {
-      sop: warn("Word 里确认 3 页", "不超过 2–3 页，双倍行距（Statement of Purpose 和 Personal Statement 是同一份）", "859 词，双倍行距。估算 68 行，3 页正好排满，没在 Word 里验证"),
+      sop: warn("Word 里确认 3 页", "不超过 2–3 页，双倍行距（Statement of Purpose 和 Personal Statement 是同一份）", "860 词，双倍行距。估算 68 行，3 页正好排满，没在 Word 里验证"),
       essay: na("没有"),
       ws: na("没写"),
       cv: cv("必交"),
@@ -306,7 +306,7 @@ const SCHOOLS = [
 
   { id: "uci", name: "UC Irvine", prog: "PhD in Economics", ddl: "12/1", ddlFull: "12/1（可迟交到 12/15）", date: "2026-12-01", fee: "$155",
     items: {
-      sop: ok("1200 词，粘贴进文本框（你 11/22 告知）；提交后不能改", "1101 词"),
+      sop: ok("1200 词，粘贴进文本框（你 11/22 告知）；提交后不能改", "1102 词"),
       essay: pend("Personal history statement，必交，要和 SOP 分开；长度公开页面没写", "`" + PSD + "PS_UC_Irvine.docx`，765 词"),
       ws: na("没写"),
       cv: na("没写", "有 CV，系统里有栏位就交"),
@@ -321,7 +321,7 @@ const SCHOOLS = [
 
   { id: "boulder", name: "CU Boulder", prog: "PhD in Economics", ddl: "12/1", ddlFull: "国际生 12/1 晚 10:00（山地时间）", date: "2026-12-01", fee: "$80",
     items: {
-      sop: ok("长度没写；Word 或 PDF；这份同时当作个人陈述和写作样本", "1073 词，约 1.9 页"),
+      sop: ok("长度没写；Word 或 PDF；这份同时当作个人陈述和写作样本", "1074 词，约 1.9 页"),
       essay: na("Diversity statement 可选，长度没写", "可以用你现成的 250／500／750 词版", "可选"),
       ws: na("不单独收"),
       cv: ok("系里没列，系统里有简历栏", CVF),
@@ -336,7 +336,7 @@ const SCHOOLS = [
 
   { id: "ucsd", name: "UC San Diego", prog: "PhD in Economics", ddl: "12/2", ddlFull: "12/2（时间没写）", date: "2026-12-02", fee: "$155",
     items: {
-      sop: ok("2500 词；只接受在线提交", "1127 词"),
+      sop: ok("2500 词；只接受在线提交", "1128 词"),
       essay: na("页面没写其他文书"),
       ws: ok("必交；本人写的研究或课程论文；PDF；页数没写", WS_ALL),
       cv: ok("可选，建议交", CVF),
@@ -351,7 +351,7 @@ const SCHOOLS = [
 
   { id: "ucsb", name: "UC Santa Barbara", prog: "PhD in Economics", ddl: "12/2", ddlFull: "12/2（奖学金优先）；最终 12/16", date: "2026-12-02", fee: "$155",
     items: {
-      sop: warn("要转 PDF", "建议不超过 2 页单倍行距；右上角写姓名（Last, First）和文书标题；PDF，不超过 9MB", "1096 词，估算约 1.9 页，页眉已有；只有 .docx"),
+      sop: warn("要转 PDF", "建议不超过 2 页单倍行距；右上角写姓名（Last, First）和文书标题；PDF，不超过 9MB", "1104 词，估算约 1.9 页，页眉已有；只有 .docx"),
       essay: pend("Personal History Statement，必交，至少 250 词，建议不超过 2 页单倍行距，同样的页眉，不能和 SOP 重复", "`" + PSD + "PS_UC_Santa_Barbara.docx`，765 词，约 1.3 页，页眉已有，有 PDF"),
       ws: na("不要求；页面写不要上传系里没要的文件", "—", "不要传"),
       cv: warn("缺每周小时数", "必交；要列出高中以来的工作和志愿活动，写明起止日期和**每周小时数**", "CV 有起止日期，没有每周小时数"),
@@ -380,7 +380,7 @@ const SCHOOLS = [
 
   { id: "harris", name: "UChicago Harris", prog: "PhD in Public Policy", ddl: "12/3", ddlFull: "12/3（时间没写）", date: "2026-12-03", fee: "$90",
     items: {
-      sop: ok("Research Statement，800 词", "795 词，双倍行距约 2.8 页"),
+      sop: ok("Research Statement，800 词", "796 词，双倍行距约 2.8 页"),
       essay: na("没有"),
       ws: ok("必交，PDF，最好是独立署名的研究论文；页数没写", WS_ALL),
       cv: cv("必交（resume）"),
@@ -394,7 +394,7 @@ const SCHOOLS = [
 
   { id: "penn", name: "UPenn", prog: "PhD in Economics", ddl: "12/8", ddlFull: "12/8 晚 11:59（东部时间）", date: "2026-12-08", fee: "$90",
     items: {
-      sop: draft("只有一篇文书，建议约 500 词；上传到 Slate", "500 词"),
+      sop: draft("只有一篇文书，建议约 500 词；上传到 Slate", "531 词，比建议的约 500 词多；11/25 加了两位教授和结尾的职业目标句"),
       essay: na("没有"),
       ws: ok("可选，页数没写", WS_ALL, "可选·有"),
       cv: na("没写", "有 CV，系统里有栏位就交"),
@@ -408,7 +408,7 @@ const SCHOOLS = [
 
   { id: "northwestern", name: "Northwestern", prog: "PhD in Economics", ddl: "12/15", ddlFull: "12/15 晚 11:59（中部时间）", date: "2026-12-15", fee: "$95",
     items: {
-      sop: draft("Academic Statement of Purpose，500–1000 词", "981 词"),
+      sop: draft("Academic Statement of Purpose，500–1000 词", "969 词"),
       essay: ok("Personal Statement，研究生院要求所有人必交，125–250 词；写关键经历、服务或领导经历，不能和 SOP 重复", "你的 250 词版个人陈述（`网申材料/fangyu_diversity_statement250.pdf`，248 词），在上限以内，内容对得上题目；还没另存成 Northwestern 的文件", "有·250 词版"),
       ws: ok("可选，最多一篇", WS_ALL, "可选·有"),
       cv: warn("看有没有空档", "必交；要涵盖高中以后的全部经历，不能有空档", CVF + "；有没有空档要你自己过一眼"),
@@ -423,7 +423,7 @@ const SCHOOLS = [
 
   { id: "cornell", name: "Cornell", prog: "PhD in Economics", ddl: "12/15", ddlFull: "12/15（年份和时间没写）", date: "2026-12-15", fee: "$105",
     items: {
-      sop: draft("Academic Statement of Purpose，1–2 页，标准字体；**每页顶部写全名和申请项目**", "980 词，估算约 1.7 页，页眉已有"),
+      sop: draft("Academic Statement of Purpose，1–2 页，标准字体；**每页顶部写全名和申请项目**", "991 词，估算约 1.7 页，页眉已有"),
       essay: ok("Personal Statement，必交，长度没写；写背景和经历如何影响你读研的决定和准备，以及你如何为 community of belonging 做贡献；和学术陈述互补，不重复", "你的 500 词版个人陈述（`网申材料/fangyu_diversity_statement500.pdf`，497 词，1 页），或 750 词版，内容对得上题目；还没另存成 Cornell 的文件", "有·500 词版"),
       ws: na("没写"),
       cv: cv("必交"),
@@ -438,7 +438,7 @@ const SCHOOLS = [
 
   { id: "bu", name: "Boston University", prog: "PhD in Economics", ddl: "12/15", ddlFull: "12/15 晚 11:59（波士顿时间）", date: "2026-12-15", fee: "$95",
     items: {
-      sop: draft("至少 200 词，通常约 750 词或 2 页，最多 5 页；**每页都要有姓名、系名和项目名**；提交后不能替换", "1067 词，约 1.9 页，页眉已有"),
+      sop: draft("至少 200 词，通常约 750 词或 2 页，最多 5 页；**每页都要有姓名、系名和项目名**；提交后不能替换", "1074 词，约 1.9 页，页眉已有"),
       essay: na("没有"),
       ws: na("不要求"),
       cv: ok("系里说可以交，研究生院的清单写必交；提交后不能替换", CVF),
@@ -452,7 +452,7 @@ const SCHOOLS = [
 
   { id: "brown", name: "Brown", prog: "PhD in Economics", ddl: "1/1", ddlFull: "2027/1/1（按东部时间算）", date: "2027-01-01", fee: "$75",
     items: {
-      sop: warn("不足 2 页", "Personal statement，2–3 页", "1059 词。文件实际是单倍行距，估算约 1.9 页。我之前说它改成了 1.5 倍行距、约 2.4 页，那次改动没有生效"),
+      sop: warn("不足 2 页", "Personal statement，2–3 页", "1073 词。文件实际是单倍行距，估算约 1.9 页。我之前说它改成了 1.5 倍行距、约 2.4 页，那次改动没有生效"),
       essay: ok("Supplemental Essay，不超过 300 词，两题选一：① 你的背景和经历如何让你受益于并贡献于 Brown 的包容性学术社区；② 你打算如何通过研究、教学或服务促进多元和包容", "你的 250 词版个人陈述（`网申材料/fangyu_diversity_statement250.pdf`，248 词），在上限以内，对应第 ① 题；文中没有提到 Brown", "有·250 词版"),
       ws: na("没写"),
       cv: na("没写", "有 CV，系统里有栏位就交"),
@@ -466,7 +466,7 @@ const SCHOOLS = [
 
   { id: "jhu", name: "Johns Hopkins", prog: "PhD in Economics", ddl: "1/1", ddlFull: "2027/1/1（时间没写）", date: "2027-01-01", fee: "$75",
     items: {
-      sop: draft("经济系没写题目和长度", "1071 词，约 1.9 页"),
+      sop: draft("经济系没写题目和长度", "1072 词，约 1.9 页"),
       essay: na("没写"),
       ws: na("没写"),
       cv: na("打开的页面上没写", "有 CV，系统里有栏位就交"),
@@ -480,7 +480,7 @@ const SCHOOLS = [
 
   { id: "emory", name: "Emory", prog: "PhD in Economics", ddl: "1/1", ddlFull: "2027/1/1 晚 11:59（东部时间）", date: "2027-01-01", fee: "$75",
     items: {
-      sop: draft("长度没写；Laney 的默认题目：学术经历、兴趣方向、研究计划、研究经历、准备情况", "1081 词，约 1.9 页"),
+      sop: draft("长度没写；Laney 的默认题目：学术经历、兴趣方向、研究计划、研究经历、准备情况", "1082 词，约 1.9 页"),
       essay: unk("Statement on Building Collaborative and Respectful Graduate Communities，不超过 500 词；Laney 写“按项目建议或必交”，经济系页面没提", "没有专门的文件；你的 500 词版 diversity statement 可以作底稿", "进系统看"),
       ws: ok("要求页写系里“也要求”，FAQ 写“鼓励提交”；在 Attach Documents 里上传", WS_ALL),
       cv: cv("必交"),
@@ -495,7 +495,7 @@ const SCHOOLS = [
 
   { id: "bc", name: "Boston College", prog: "PhD in Economics", ddl: "1/2", ddlFull: "1/2（时间没写）；成绩等所有材料都要在这之前到", date: "2027-01-02", fee: "$75",
     items: {
-      sop: draft("1–2 页：准备、动机、目标", "1080 词，估算约 1.9 页"),
+      sop: draft("1–2 页：准备、动机、目标", "1081 词，估算约 1.9 页"),
       essay: na("没有"),
       ws: na("没列"),
       cv: ok("在申请表里上传简历", CVF),
@@ -509,7 +509,7 @@ const SCHOOLS = [
 
   { id: "ucr", name: "UC Riverside", prog: "PhD in Economics", ddl: "1/5", ddlFull: "1/5（奖学金和录取；年份没写）", date: "2027-01-05", fee: "$155",
     items: {
-      sop: warn("要转 PDF；缺两项内容", "Graduate Statement of Purpose，不超过 2000 词，上传 PDF；题目列了六个方面：背景、研究兴趣、与 UCR 的契合、动机、未来目标和社会影响、对学术和 UCR 社区的贡献", "1085 词，只有 .docx；“社会影响”和“对社区的贡献”正文没有专门写；草稿"),
+      sop: warn("要转 PDF；缺两项内容", "Graduate Statement of Purpose，不超过 2000 词，上传 PDF；题目列了六个方面：背景、研究兴趣、与 UCR 的契合、动机、未来目标和社会影响、对学术和 UCR 社区的贡献", "1086 词，只有 .docx；“社会影响”和“对社区的贡献”正文没有专门写；草稿"),
       essay: na("2026 年起不再要 Personal History Statement"),
       ws: na("系里没写"),
       cv: na("没写", "有 CV，系统里有栏位就交"),
@@ -524,7 +524,7 @@ const SCHOOLS = [
 
   { id: "duke", name: "Duke", prog: "PhD in Economics", ddl: "1/6", ddlFull: "2027/1/6 晚 11:59（东部时间）", date: "2027-01-06", fee: "$105",
     items: {
-      sop: warn("要转 PDF；缺 weaknesses", "1–2 页单倍行距；题目要求写目的、兴趣和计划、**在本领域的强项和弱项**、研究项目、选 Duke 的理由；**只收 PDF**；所有文件上要有全名", "1077 词，约 1.9 页，页眉有姓名；只有 .docx；正文没有写 weaknesses；草稿"),
+      sop: warn("要转 PDF；缺 weaknesses", "1–2 页单倍行距；题目要求写目的、兴趣和计划、**在本领域的强项和弱项**、研究项目、选 Duke 的理由；**只收 PDF**；所有文件上要有全名", "1078 词，约 1.9 页，页眉有姓名；只有 .docx；正文没有写 weaknesses；草稿"),
       essay: warn("有，要加姓名转 PDF", "Life Experiences Statement，必交，不超过 1 页单倍行距；写塑造你的人生经历，以及你会怎样用它们为 Duke 的学术社区做贡献。Duke 要求所有文件上有全名", "你的 500 词版个人陈述（`网申材料/fangyu_diversity_statement500.pdf`，497 词，1 页），正好 1 页；文件上没有姓名"),
       ws: ok("建议交（非必须）；每个文件不超过 75 页", WS_ALL, "建议·有"),
       cv: cv("必交"),
@@ -538,7 +538,7 @@ const SCHOOLS = [
 
   { id: "uiuc", name: "UIUC", prog: "PhD in Economics", ddl: "1/10？", ddlFull: "官方页面现在没写日期；1/10 只出现在旧页面的缓存里，要进系统或问 econ-phd@illinois.edu", date: "2027-01-10", fee: "$90",
     items: {
-      sop: warn("上限进系统看", "Academic Statement，上限由项目设在 500–1000 词之间，经济系设的数只在系统里", "987 词；草稿"),
+      sop: warn("上限进系统看", "Academic Statement，上限由项目设在 500–1000 词之间，经济系设的数只在系统里", "988 词；草稿"),
       essay: bad("缺 Q2", "4 道短答，各不超过 250 词。Q1（必答）：塑造你学业和职业发展的关键经历、机会或困难；Q2（必答）：和不同背景的同伴共事的例子，以及你学到什么；Q3、Q4 可选", "Q1 可以用你的 250 词版个人陈述（`网申材料/fangyu_diversity_statement250.pdf`，248 词）。Q2 没有现成的文字"),
       ws: na("没写"),
       cv: ok("系里没列；研究生院说多数项目要", CVF),
@@ -568,7 +568,7 @@ const SCHOOLS = [
 
   { id: "rutgers", name: "Rutgers", prog: "PhD in Economics", ddl: "1/15", ddlFull: "2027/1/15（时间没写）", date: "2027-01-15", fee: "$70",
     items: {
-      sop: draft("personal statement，没有公布题目和长度", "1081 词，约 1.9 页"),
+      sop: draft("personal statement，没有公布题目和长度", "1082 词，约 1.9 页"),
       essay: na("没有；可以附一段说明数学课内容的补充（可选）"),
       ws: ok("可选", WS_ALL, "可选·有"),
       cv: cv("必交"),
@@ -582,7 +582,7 @@ const SCHOOLS = [
 
   { id: "cuny", name: "CUNY Graduate Center", prog: "PhD in Economics", ddl: "2/1", ddlFull: "2027/2/1 晚 11:59（东部时间）", date: "2027-02-01", fee: "$75 + 2.65%",
     items: {
-      sop: draft("Applicant Statement，建议约 1000 词；上传，每个文件不超过 4MB", "988 词"),
+      sop: draft("Applicant Statement，建议约 1000 词；上传，每个文件不超过 4MB", "989 词"),
       essay: na("Personal Statement 可选，不超过 250 词", "你的 250 词版 diversity statement 可以作底稿", "可选"),
       ws: warn("要加生日", "可选；文件上要写全名和出生日期", "文件有；上面有姓名，没有出生日期"),
       cv: ok("可选", CVF, "可选·有"),
@@ -597,7 +597,7 @@ const SCHOOLS = [
 
 // 其他文书：[学校, 截止, 文书和长度, 要写什么, 现在的情况, 状态, 标签, 是否虚线]
 const ESSAYS = [
-  ["Carnegie Mellon（Heinz）", "12/1", "**Research Proposal**，必交，不超过 1200 词", "和 SOP 是两份。写一个你想做的研究项目：想法是什么、为什么重要（对谁重要）、初步打算怎么做、要回答的主要问题、需要哪类证据来支持结论", "没有文件", "bad", "缺"],
+  ["Carnegie Mellon（Heinz）", "12/1", "**Research Proposal**，必交，不超过 1200 词", "和 SOP 是两份。写一个你想做的研究项目：想法是什么、为什么重要（对谁重要）、初步打算怎么做、要回答的主要问题、需要哪类证据来支持结论", "有草稿，616 词，在 `SOP_待review/`，还没有定稿", "warn", "草稿待确认"],
   ["Northwestern", "12/15", "Personal Statement，必交，125–250 词", "关键经历、服务或领导经历，或申请里别处没写到的内容；不能和 SOP 重复", "用你的 250 词版（248 词），内容对得上；还没另存成 Northwestern 的文件", "ok", "有·250 词版"],
   ["Cornell", "12/15", "Personal Statement，必交，长度没写", "你的背景和经历如何影响你读研的决定和准备；你会怎样为 community of belonging 做贡献；和学术陈述互补，不重复", "用你的 500 词版或 750 词版，内容对得上；还没另存成 Cornell 的文件", "ok", "有·500 词版"],
   ["Brown", "1/1", "Supplemental Essay，要上传，不超过 300 词", "两题选一：① 你的背景、知识和经历如何让你受益于并贡献于 Brown 的包容性学术社区；② 你打算如何通过研究、教学或服务促进多元和包容", "用你的 250 词版（248 词），对应第 ① 题；文中没有提到 Brown", "ok", "有·250 词版"],
@@ -629,9 +629,9 @@ const BLIND = [
 const METHOD = [
   "**SOP 的要求**来自 2026-11-21／22 查的官方页面，以及你登录系统后告诉我的三处（Columbia、UCLA、UC Irvine）。",
   "**SOP 以外的要求**是 2026-11-24 让四个后台查询去读各校经济系和研究生院的官方页面得到的。只记页面写明的内容，页面没写的标“没写”，两处说法不一的照录。查询返回的结果我没有逐条再点开核对，卡片底部有来源链接。",
-  "**现在的情况**是 2026-11-24 量的：词数按空格计；页数按 Times New Roman 12 号字、1 英寸页边距估算，不是 Word 的实际排版。",
+  "**现在的情况**：SOP 的词数是 2026-11-25 量的，其余是 2026-11-24 量的；词数按空格计；页数按 Times New Roman 12 号字、1 英寸页边距估算，不是 Word 的实际排版。",
   "**“满足·草稿”**指文件对得上要求，内容还没定稿（后来的 15 所，你说完成了 70%）。**“满足·待确认”**指文件在 `个人陈述_待确认/` 里，你还没确认。",
-  "**Georgia Tech** 按你 11/24 说的从表里删去了，现在是 29 所。`sop/2_后来的15所/SOP_Georgia_Tech.docx` 还在文件夹里，没有动。",
+  "**Georgia Tech** 按你 11/24 说的从表里删去了，现在是 29 所。11/25 按你说的把 `SOP_Georgia_Tech.docx` 移到了 `trash/已删去的学校/`。",
   "这张表不带打勾功能。旧的 `网申材料/各校SOP格式要求.html` 里的词数和文件路径已经过时，我没有改它。",
 ];
 
